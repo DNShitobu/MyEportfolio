@@ -1,1642 +1,627 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Mohammed Kamal-Deen Fuseini | Educator · Researcher · Indigenous Knowledge Activist</title>
-<meta name="description" content="Portfolio of Mohammed Kamal-Deen Fuseini — Cybersecurity Researcher, Educator, Wikimedia Organizer & Language Revitalization Advocate from Ghana."/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mohammed Kamal-Deen Fuseini | Educator and Cybersecurity Researcher</title>
+<meta name="description" content="Educator, MPhil candidate in Cybersecurity and Digital Forensics, and Wikimedia organizer working on deepfake detection and Dagbani language technology in Tamale, Ghana."/>
+<meta name="theme-color" content="#0f2f4b"/>
+<link rel="canonical" href="https://dnshitobu.netlify.app/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Mohammed Kamal-Deen Fuseini"/>
+<meta property="og:description" content="Educator, cybersecurity researcher and Wikimedia organizer based in Tamale, Ghana."/>
+<meta property="og:url" content="https://dnshitobu.netlify.app/"/>
+<meta name="twitter:card" content="summary"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f2f4b'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' font-weight='700' text-anchor='middle' fill='%23e2b45a'%3EMK%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script>
+/* set theme before paint to avoid a flash */
+(function(){
+  var t=null;
+  try{t=localStorage.getItem('theme');}catch(e){}
+  if(!t){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  document.documentElement.setAttribute('data-theme',t);
+  document.documentElement.classList.add('js');
+})();
+</script>
 <style>
-/* ════════════════════════════════════════════
-   DESIGN TOKENS — LIGHT & DARK
-════════════════════════════════════════════ */
-:root {
-  /* surfaces */
-  --bg:        #f3f4f8;
-  --surf:      #ffffff;
-  --surf2:     #eaecf4;
-  --surf3:     #e1e4ef;
-  /* primary — warm amber gold */
-  --gold:      #bf8b0e;
-  --gold-h:    #a37608;
-  --gold-lt:   #e0aa30;
-  --gold-pale: rgba(191,139,14,.11);
-  --gold-bd:   rgba(191,139,14,.28);
-  /* secondary — deep navy teal */
-  --navy:      #0d3a5c;
-  --navy-mid:  #185d8f;
-  --navy-pale: rgba(13,58,92,.09);
-  --navy-bd:   rgba(13,58,92,.22);
-  /* tertiary — forest green */
-  --fern:      #1b5c3a;
-  --fern-mid:  #287a51;
-  --fern-pale: rgba(27,92,58,.09);
-  --fern-bd:   rgba(27,92,58,.20);
-  /* text */
-  --tx:        #131820;
-  --tx-mid:    #3a4255;
-  --tx-mute:   rgba(19,24,32,.50);
-  --tx-light:  rgba(19,24,32,.32);
-  /* ui */
-  --bd:        rgba(19,24,32,.09);
-  --bd-soft:   rgba(19,24,32,.06);
-  --shd-sm:    0 1px 3px rgba(13,58,92,.06),0 1px 2px rgba(13,58,92,.04);
-  --shd:       0 4px 16px rgba(13,58,92,.09),0 1px 4px rgba(13,58,92,.05);
-  --shd-lg:    0 12px 40px rgba(13,58,92,.13);
-  --radius:    8px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  /* nav width for desktop sidebar (unused — we use top nav) */
-  --nav-h:     68px;
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface-2:#f3f1ea; --line:#e3e0d5;
+  --ink:#14202e; --ink-2:#44505e; --ink-3:#5b6674;
+  --brand:#123b5e; --brand-hover:#0c2c47; --on-brand:#ffffff;
+  --accent:#8a5a00; --accent-bg:#f6ecd6;
+  --deep:#0f2f4b;
+  --shadow:0 1px 2px rgba(20,32,46,.06),0 8px 24px rgba(20,32,46,.06);
+  --radius:12px;
+  --nav-h:64px;
+  --max:1120px;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
-[data-theme="dark"] {
-  --bg:        #0d1117;
-  --surf:      #161b24;
-  --surf2:     #1e2530;
-  --surf3:     #252c3a;
-  --gold:      #d4a020;
-  --gold-h:    #ebb832;
-  --gold-lt:   #f0c850;
-  --gold-pale: rgba(212,160,32,.13);
-  --gold-bd:   rgba(212,160,32,.30);
-  --navy:      #3b8fc0;
-  --navy-mid:  #5aaad8;
-  --navy-pale: rgba(59,143,192,.12);
-  --navy-bd:   rgba(59,143,192,.28);
-  --fern:      #3db870;
-  --fern-mid:  #5acf88;
-  --fern-pale: rgba(61,184,112,.10);
-  --fern-bd:   rgba(61,184,112,.25);
-  --tx:        #e2e8f4;
-  --tx-mid:    #a8b5cc;
-  --tx-mute:   rgba(226,232,244,.52);
-  --tx-light:  rgba(226,232,244,.30);
-  --bd:        rgba(226,232,244,.10);
-  --bd-soft:   rgba(226,232,244,.06);
-  --shd-sm:    0 1px 3px rgba(0,0,0,.20);
-  --shd:       0 4px 16px rgba(0,0,0,.30);
-  --shd-lg:    0 12px 40px rgba(0,0,0,.40);
+[data-theme="dark"]{
+  --bg:#0c131b; --surface:#131c27; --surface-2:#1a2531; --line:#263444;
+  --ink:#eaeef3; --ink-2:#b4bfcc; --ink-3:#93a0af;
+  --brand:#8fbfe8; --brand-hover:#b0d3f2; --on-brand:#0c131b;
+  --accent:#e2b45a; --accent-bg:#2a2314;
+  --deep:#0a1520;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
 }
 
-/* ════════════════════════════════════════════
-   BASE RESET
-════════════════════════════════════════════ */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;}
-body{
-  background:var(--bg);
-  color:var(--tx);
-  font-family:'Outfit',sans-serif;
-  font-weight:400;
-  line-height:1.7;
-  overflow-x:hidden;
-  transition:background .35s,color .35s;
-}
-img{max-width:100%;display:block;}
-a{text-decoration:none;color:inherit;}
-ul{list-style:none;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.15;color:var(--ink);letter-spacing:-.01em}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--brand);color:var(--on-brand);padding:.6rem 1rem;border-radius:8px;z-index:2000}
+.skip:focus{left:8px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
+.icon{width:1.1em;height:1.1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.icon.fill{fill:currentColor;stroke:none}
 
-/* Scrollbar */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--surf2);}
-::-webkit-scrollbar-thumb{background:var(--gold-bd);border-radius:3px;}
+/* ---------- header ---------- */
+header.site{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:1000;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+header.site.scrolled{border-bottom-color:var(--line)}
+header.site .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{font-family:var(--serif);font-weight:700;font-size:1.15rem;color:var(--ink)}
+.logo span{color:var(--accent)}
+nav.primary ul{display:flex;gap:.25rem}
+nav.primary a{display:block;padding:.45rem .8rem;border-radius:8px;font-size:.9rem;font-weight:500;color:var(--ink-2);transition:color .15s,background .15s}
+nav.primary a:hover{color:var(--ink);background:var(--surface-2)}
+nav.primary a[aria-current="true"]{color:var(--brand);background:var(--surface-2)}
+.tools{display:flex;gap:.5rem;align-items:center}
+.icon-btn{width:40px;height:40px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:border-color .15s,color .15s}
+.icon-btn:hover{color:var(--ink);border-color:var(--ink-3)}
+.icon-btn .icon{width:18px;height:18px}
+.sun{display:none}
+[data-theme="dark"] .sun{display:block}
+[data-theme="dark"] .moon{display:none}
+.menu-btn{display:none}
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:.5rem 1.5rem 1rem;z-index:999}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;padding:.8rem 0;border-bottom:1px solid var(--line);font-weight:500;color:var(--ink-2)}
+.mobile-nav li:last-child a{border-bottom:0}
 
-/* ════════════════════════════════════════════
-   NAV (Alexa-inspired: fixed top, scrollspy)
-════════════════════════════════════════════ */
-#navbar{
-  position:fixed;top:0;left:0;right:0;
-  z-index:1000;
-  height:var(--nav-h);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 4rem;
-  background:rgba(243,244,248,.88);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--bd);
-  transition:background .35s,border-color .35s,height .25s;
-}
-[data-theme="dark"] #navbar{background:rgba(13,17,23,.88);}
-#navbar.scrolled{height:58px;box-shadow:var(--shd-sm);}
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.35rem;border-radius:10px;font-size:.95rem;font-weight:600;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--brand);color:var(--on-brand)}
+.btn-primary:hover{background:var(--brand-hover)}
+.btn-outline{border-color:var(--line);background:var(--surface);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink-3)}
 
-.nav-logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.3rem;font-weight:700;
-  color:var(--gold);letter-spacing:.03em;
-}
-.nav-logo span{color:var(--tx-mid);font-weight:400;font-style:italic;}
+/* ---------- sections ---------- */
+section{padding:5.5rem 0;scroll-margin-top:var(--nav-h)}
+section.alt{background:var(--surface);border-block:1px solid var(--line)}
+.eyebrow{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+h2.title{font-size:clamp(1.9rem,3.4vw,2.6rem);margin-bottom:2.25rem}
+.lead{font-size:1.15rem;color:var(--ink-2);max-width:62ch}
 
-.nav-center{display:flex;align-items:center;gap:2px;}
-.nav-center a{
-  padding:.45rem .9rem;
-  border-radius:6px;
-  font-size:.82rem;font-weight:500;
-  letter-spacing:.04em;text-transform:uppercase;
-  color:var(--tx-mute);
-  transition:all .2s;
-}
-.nav-center a:hover,.nav-center a.active{color:var(--gold);}
-.nav-center a.active{background:var(--gold-pale);}
+/* ---------- hero ---------- */
+#home{padding:calc(var(--nav-h) + 4rem) 0 5rem}
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:4rem;align-items:center}
+.hero .place{display:inline-flex;align-items:center;gap:.5rem;font-size:.9rem;font-weight:500;color:var(--ink-2);margin-bottom:1.25rem}
+h1{font-size:clamp(2.6rem,5.6vw,4.4rem);line-height:1.04;margin-bottom:1.25rem}
+.role{font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.55rem);font-weight:500;color:var(--accent);margin-bottom:1.25rem}
+.hero .lead{margin-bottom:2rem}
+.cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2rem}
+.social{display:flex;gap:.5rem;flex-wrap:wrap}
+.social a{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);transition:color .15s,border-color .15s}
+.social a:hover{color:var(--brand);border-color:var(--brand)}
+.social .icon{width:19px;height:19px}
+.portrait{position:relative;aspect-ratio:4/5;max-width:400px;margin-left:auto;width:100%;border-radius:20px;overflow:hidden;background:var(--deep);box-shadow:var(--shadow)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:6rem;color:var(--accent);letter-spacing:.02em}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:4rem;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.fact{background:var(--surface);padding:1.25rem 1.5rem}
+.fact b{display:block;font-family:var(--serif);font-size:1.9rem;font-weight:600;color:var(--ink);line-height:1.1}
+.fact span{font-size:.9rem;color:var(--ink-3)}
 
-.nav-right{display:flex;align-items:center;gap:.75rem;}
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:4rem}
+.about p{color:var(--ink-2);margin-bottom:1.1rem;max-width:60ch}
+.about p:last-child{margin-bottom:0}
+.interests h3{font-size:1.15rem;margin-bottom:1rem}
+.interests li{padding:.75rem 0;border-top:1px solid var(--line);color:var(--ink-2)}
+.interests li:last-child{border-bottom:1px solid var(--line)}
+.interests b{color:var(--ink);font-weight:600}
 
-/* dark mode toggle */
-.theme-toggle{
-  width:38px;height:38px;
-  border-radius:50%;
-  border:1px solid var(--bd);
-  background:var(--surf);
-  color:var(--tx-mid);
-  font-size:1rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all .2s;box-shadow:var(--shd-sm);
-}
-.theme-toggle:hover{border-color:var(--gold-bd);color:var(--gold);}
+/* ---------- timeline ---------- */
+.tl{border-top:1px solid var(--line)}
+.tl-row{display:grid;grid-template-columns:180px 1fr;gap:2rem;padding:1.75rem 0;border-bottom:1px solid var(--line)}
+.tl-when{font-size:.9rem;font-weight:500;color:var(--ink-3);padding-top:.2rem}
+.tl-row h3{font-size:1.25rem;margin-bottom:.25rem}
+.tl-org{font-size:.95rem;font-weight:600;color:var(--accent);margin-bottom:.6rem}
+.tl-row p{color:var(--ink-2);max-width:68ch}
 
-/* hamburger */
-.hamburger{
-  display:none;flex-direction:column;gap:5px;
-  cursor:pointer;padding:.4rem;background:none;border:none;
-}
-.hamburger span{
-  display:block;width:22px;height:2px;
-  background:var(--tx-mid);border-radius:2px;
-  transition:all .3s;
-}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.hamburger.open span:nth-child(2){opacity:0;}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* ---------- research ---------- */
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:2.5rem;display:grid;grid-template-columns:1.6fr 1fr;gap:3rem;box-shadow:var(--shadow)}
+.tag{display:inline-block;font-size:.8rem;font-weight:600;color:var(--accent);background:var(--accent-bg);padding:.25rem .7rem;border-radius:999px;margin-bottom:1rem}
+.paper h3{font-size:1.55rem;margin-bottom:1rem;line-height:1.25}
+.paper p{color:var(--ink-2);margin-bottom:1rem}
+.paper p:last-child{margin-bottom:0}
+.meta dt{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:.2rem}
+.meta dd{color:var(--ink);margin-bottom:1.25rem}
+.meta a{color:var(--brand);text-decoration:underline;text-underline-offset:3px}
+.progress li{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-top:1px solid var(--line);font-size:.95rem;color:var(--ink-2)}
+.progress li:last-child{border-bottom:1px solid var(--line)}
+.progress .done{color:var(--brand);font-weight:600;white-space:nowrap}
+.progress .todo{color:var(--ink-3);white-space:nowrap}
 
-/* mobile menu */
-.mobile-menu{
-  display:none;
-  position:fixed;top:var(--nav-h);left:0;right:0;
-  background:var(--surf);
-  border-bottom:1px solid var(--bd);
-  padding:1rem 2rem 1.5rem;
-  box-shadow:var(--shd);
-  z-index:999;
-  flex-direction:column;gap:.25rem;
-}
-.mobile-menu.open{display:flex;}
-.mobile-menu a{
-  padding:.65rem 1rem;border-radius:6px;
-  font-size:.9rem;font-weight:500;color:var(--tx-mid);
-  transition:all .2s;
-}
-.mobile-menu a:hover,.mobile-menu a.active{
-  background:var(--gold-pale);color:var(--gold);
-}
+/* ---------- projects ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;transition:border-color .18s,box-shadow .18s,transform .18s}
+section.alt .card{background:var(--bg)}
+.card:hover{border-color:var(--ink-3);box-shadow:var(--shadow);transform:translateY(-2px)}
+.card .kind{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+.card h3{font-size:1.2rem;margin-bottom:.6rem}
+.card p{color:var(--ink-2);font-size:.98rem;margin-bottom:1.1rem}
+.stack{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;margin-bottom:1.1rem}
+.stack span{font-size:.8rem;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:.15rem .6rem;border-radius:6px}
+.card .go{display:inline-flex;align-items:center;gap:.4rem;font-weight:600;font-size:.95rem;color:var(--brand)}
+.card .go:hover{text-decoration:underline;text-underline-offset:3px}
+.more{margin-top:2rem;color:var(--ink-2)}
+.more a{color:var(--brand);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
-/* ════════════════════════════════════════════
-   SECTION SHELL
-════════════════════════════════════════════ */
-section{
-  position:relative;z-index:1;
-  padding:6rem 4rem;
-}
-section:nth-child(even){background:var(--surf);}
+/* ---------- wikimedia ---------- */
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:2.5rem}
+.role-item{padding:1.5rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.role-item h3{font-size:1.1rem;margin-bottom:.4rem}
+.role-item p{color:var(--ink-2);font-size:.98rem}
+.langs{padding:1.75rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.langs h3{font-size:1.15rem;margin-bottom:.75rem}
+.langs p{color:var(--ink-2);max-width:80ch}
+.langs p + p{margin-top:.75rem}
 
-.section-label{
-  display:flex;align-items:center;gap:1rem;
-  margin-bottom:3rem;
-}
-.sec-eyebrow{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;color:var(--gold);
-  letter-spacing:.18em;text-transform:uppercase;
-}
-h2.sec-title{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2rem,3.8vw,3rem);
-  font-weight:700;line-height:1.1;color:var(--tx);
-}
-h2.sec-title em{font-style:italic;color:var(--gold);}
-h2.sec-title .blue-em{font-style:italic;color:var(--navy);}
-h2.sec-title .green-em{font-style:italic;color:var(--fern);}
-.sec-line{flex:1;height:1px;background:var(--bd);max-width:180px;}
+/* ---------- skills ---------- */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.skills h3{font-size:1.1rem;margin-bottom:.9rem;padding-bottom:.6rem;border-bottom:2px solid var(--accent);display:inline-block}
+.skills li{padding:.45rem 0;color:var(--ink-2);border-bottom:1px solid var(--line)}
 
-/* ════════════════════════════════════════════
-   HERO — Alexa blob + Hugo Academic content
-════════════════════════════════════════════ */
-#home{
-  min-height:100vh;
-  padding:calc(var(--nav-h) + 3rem) 4rem 3rem;
-  display:grid;
-  grid-template-columns:1fr 420px;
-  align-items:center;
-  gap:3rem;
-  overflow:hidden;
-  background:var(--bg);
-}
-/* background dots — Alexa inspired */
-#home::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(var(--bd) 1px,transparent 1px);
-  background-size:28px 28px;
-  opacity:.7;pointer-events:none;
+/* ---------- contact ---------- */
+#contact{background:var(--deep);color:#fff;padding:6rem 0}
+#contact .eyebrow{color:#e2b45a}
+#contact h2{color:#fff;font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem;max-width:20ch}
+#contact p.lead{color:rgba(255,255,255,.8);margin-bottom:2rem}
+.links{display:flex;flex-wrap:wrap;gap:.75rem}
+.links a{display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 1.15rem;border:1px solid rgba(255,255,255,.28);border-radius:10px;color:#fff;font-weight:500;font-size:.95rem;transition:background .15s,border-color .15s}
+.links a:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
+
+footer{background:var(--deep);border-top:1px solid rgba(255,255,255,.1);padding:1.5rem 0;color:rgba(255,255,255,.7);font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+footer a{color:#e2b45a;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- reveal ---------- */
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .js .reveal{opacity:1;transform:none}
 }
 
-.home-text{position:relative;z-index:2;}
-
-.home-greeting{
-  display:inline-flex;align-items:center;gap:.7rem;
-  padding:.35rem 1rem;
-  border-radius:100px;
-  background:var(--gold-pale);
-  border:1px solid var(--gold-bd);
-  margin-bottom:1.5rem;
-  animation:fadeUp .7s ease both;
-}
-.home-greeting .dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--gold);
-  animation:blink 2s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.home-greeting span{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.75rem;color:var(--gold);
-  letter-spacing:.12em;text-transform:uppercase;
-}
-
-h1.home-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(3rem,6.5vw,5.8rem);
-  font-weight:700;line-height:1.0;
-  letter-spacing:-.02em;color:var(--tx);
-  animation:fadeUp .7s .1s ease both;
-}
-h1.home-name .italic{font-style:italic;font-weight:600;color:var(--navy-mid);}
-h1.home-name .gold{color:var(--gold);}
-
-.home-typewriter{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.1rem,2.2vw,1.5rem);
-  font-style:italic;color:var(--tx-mute);
-  margin:1rem 0 1.75rem;
-  min-height:2.2rem;
-  animation:fadeUp .7s .2s ease both;
-}
-.home-typewriter .typed{color:var(--gold);}
-.cursor{
-  display:inline-block;width:2px;height:1.1em;
-  background:var(--gold);margin-left:2px;
-  vertical-align:text-bottom;
-  animation:blink 0.8s step-end infinite;
-}
-
-.home-tags{
-  display:flex;flex-wrap:wrap;gap:.5rem;
-  margin-bottom:2rem;
-  animation:fadeUp .7s .3s ease both;
-}
-.htag{
-  padding:.28rem .8rem;border-radius:100px;
-  font-size:.74rem;font-weight:500;
-  background:var(--surf);border:1px solid var(--bd);
-  color:var(--tx-mute);box-shadow:var(--shd-sm);
-  transition:all .2s;cursor:default;
-}
-.htag:hover{border-color:var(--gold-bd);color:var(--gold);background:var(--gold-pale);}
-.htag.gold{background:var(--gold-pale);border-color:var(--gold-bd);color:var(--gold);}
-.htag.navy{background:var(--navy-pale);border-color:var(--navy-bd);color:var(--navy-mid);}
-.htag.fern{background:var(--fern-pale);border-color:var(--fern-bd);color:var(--fern-mid);}
-
-.home-cta{
-  display:flex;flex-wrap:wrap;gap:.85rem;
-  animation:fadeUp .7s .4s ease both;
-}
-
-/* buttons */
-.btn{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.75rem 1.65rem;border-radius:var(--radius);
-  font-family:'Outfit',sans-serif;
-  font-size:.85rem;font-weight:600;letter-spacing:.04em;
-  border:none;cursor:pointer;transition:all .22s;
-  text-decoration:none;
-}
-.btn-gold{
-  background:var(--gold);color:#fff;
-  box-shadow:0 2px 12px rgba(191,139,14,.35);
-}
-.btn-gold:hover{background:var(--gold-h);transform:translateY(-2px);box-shadow:0 4px 20px rgba(191,139,14,.45);}
-.btn-navy{background:var(--navy);color:#fff;}
-.btn-navy:hover{background:var(--navy-mid);transform:translateY(-2px);}
-.btn-ghost{
-  background:var(--surf);border:1px solid var(--bd);
-  color:var(--tx-mid);box-shadow:var(--shd-sm);
-}
-.btn-ghost:hover{border-color:var(--gold-bd);color:var(--gold);transform:translateY(-2px);}
-
-/* BLOB — Alexa hallmark */
-.home-visual{
-  position:relative;z-index:2;
-  display:flex;align-items:center;justify-content:center;
-  animation:fadeLeft .8s .5s ease both;
-}
-.blob-wrap{
-  position:relative;
-  width:360px;height:420px;
-}
-.blob-shape{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg, var(--gold-pale) 0%, var(--navy-pale) 60%, var(--fern-pale) 100%);
-  border-radius:60% 40% 30% 70% / 60% 30% 70% 40%;
-  border:2px solid var(--gold-bd);
-  animation:morph 9s ease-in-out infinite;
-  overflow:hidden;
-}
-.blob-shape::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--gold-pale) 0%,transparent 60%);
-}
-@keyframes morph{
-  0%,100%{border-radius:60% 40% 30% 70% / 60% 30% 70% 40%;}
-  25%{border-radius:30% 70% 70% 30% / 30% 50% 50% 70%;}
-  50%{border-radius:50% 50% 30% 70% / 40% 60% 40% 60%;}
-  75%{border-radius:70% 30% 50% 50% / 50% 40% 60% 40%;}
-}
-.blob-initials{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:.5rem;z-index:2;
-}
-.blob-mono{
-  font-family:'Cormorant Garamond',serif;
-  font-size:5.5rem;font-weight:700;
-  color:var(--gold);opacity:.18;line-height:1;
-}
-.blob-fullname{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;font-weight:600;
-  color:var(--tx-mid);text-align:center;
-  line-height:1.4;padding:0 2.5rem;
-}
-.blob-handle{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;color:var(--gold);
-  letter-spacing:.08em;
-}
-/* decorative rings */
-.blob-ring{
-  position:absolute;border-radius:50%;
-  border:1px dashed var(--gold-bd);
-  pointer-events:none;
-}
-.br1{width:420px;height:420px;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  animation:spin 30s linear infinite;opacity:.35;}
-.br2{width:490px;height:490px;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  animation:spin 45s linear infinite reverse;opacity:.2;}
-@keyframes spin{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-
-/* floating stat pills */
-.stat-pill{
-  position:absolute;
-  background:var(--surf);border:1px solid var(--bd);
-  border-radius:100px;padding:.5rem 1rem;
-  box-shadow:var(--shd);
-  display:flex;align-items:center;gap:.6rem;
-  animation:float 4s ease-in-out infinite;
-  z-index:3;
-}
-.stat-pill.p1{top:10%;right:-30px;animation-delay:0s;}
-.stat-pill.p2{top:55%;right:-40px;animation-delay:1.5s;}
-.stat-pill.p3{bottom:10%;left:-20px;animation-delay:3s;}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.pill-num{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.2rem;font-weight:700;color:var(--gold);line-height:1;
-}
-.pill-label{font-size:.72rem;color:var(--tx-mute);line-height:1.3;}
-
-/* home social bar */
-.home-social{
-  display:flex;gap:.6rem;margin-top:1.75rem;
-  animation:fadeUp .7s .5s ease both;
-}
-.social-btn{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--surf);border:1px solid var(--bd);
-  color:var(--tx-mute);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.85rem;box-shadow:var(--shd-sm);
-  transition:all .2s;text-decoration:none;
-}
-.social-btn:hover{border-color:var(--gold-bd);color:var(--gold);transform:translateY(-2px);}
-
-/* ════════════════════════════════════════════
-   ABOUT — Hugo Academic profile + bio tabs
-════════════════════════════════════════════ */
-#about{background:var(--surf);}
-
-.about-grid{
-  display:grid;grid-template-columns:300px 1fr;
-  gap:4rem;align-items:start;
-}
-
-/* profile card (Hugo Academic sidebar) */
-.profile-card{
-  background:var(--bg);border:1px solid var(--bd);
-  border-radius:var(--radius-xl);padding:2rem;
-  box-shadow:var(--shd-sm);
-  position:sticky;top:calc(var(--nav-h) + 1.5rem);
-}
-.profile-avatar{
-  width:100%;aspect-ratio:1/1;
-  background:var(--surf2);
-  border-radius:var(--radius-lg);
-  margin-bottom:1.25rem;
-  position:relative;overflow:hidden;
-  border:3px solid var(--surf);
-  box-shadow:var(--shd);
-}
-.profile-avatar::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--gold-pale),var(--navy-pale));
-}
-.avatar-initials{
-  position:absolute;inset:0;display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
-}
-.av-mono{
-  font-family:'Cormorant Garamond',serif;
-  font-size:3.5rem;font-weight:700;color:var(--gold);
-  opacity:.25;line-height:1;
-}
-.av-name{
-  font-family:'Cormorant Garamond',serif;
-  font-size:.9rem;font-weight:600;color:var(--tx-mid);
-  text-align:center;padding:0 1rem;line-height:1.35;
-}
-.av-handle{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.68rem;color:var(--gold);letter-spacing:.06em;
-}
-/* gold gradient top stripe */
-.profile-avatar::after{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:4px;
-  background:linear-gradient(90deg,var(--gold),var(--gold-lt),var(--fern-mid));
-}
-
-.profile-card h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.1rem;font-weight:700;
-  color:var(--tx);margin-bottom:.25rem;text-align:center;
-}
-.profile-role{
-  font-size:.78rem;color:var(--tx-mute);
-  text-align:center;margin-bottom:1.25rem;line-height:1.4;
-}
-.profile-role em{color:var(--gold);font-style:normal;font-weight:600;}
-
-.profile-stats{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:.6rem;margin-bottom:1.25rem;
-}
-.pstat{
-  background:var(--surf);border:1px solid var(--bd);
-  border-radius:var(--radius);padding:.75rem .5rem;
-  text-align:center;
-}
-.pstat-n{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.5rem;font-weight:700;color:var(--gold);line-height:1;
-  margin-bottom:.2rem;
-}
-.pstat-l{font-size:.68rem;color:var(--tx-mute);line-height:1.3;}
-
-.profile-details{
-  display:flex;flex-direction:column;gap:.55rem;
-  padding-top:1.1rem;border-top:1px solid var(--bd);
-  margin-bottom:1.25rem;
-}
-.pd-row{display:flex;gap:.6rem;font-size:.78rem;align-items:flex-start;}
-.pd-icon{font-size:.9rem;flex-shrink:0;margin-top:.1rem;}
-.pd-text{color:var(--tx-mute);}
-.pd-text a{color:var(--gold);}
-.pd-text a:hover{text-decoration:underline;}
-
-.profile-social{
-  display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;
-}
-.ps-link{
-  padding:.28rem .7rem;border-radius:100px;
-  font-size:.7rem;font-weight:500;
-  background:var(--surf2);border:1px solid var(--bd);
-  color:var(--tx-mute);transition:all .2s;
-}
-.ps-link:hover{background:var(--gold-pale);border-color:var(--gold-bd);color:var(--gold);}
-
-/* about content tabs (Hugo Academic style) */
-.about-tabs{display:flex;gap:2px;margin-bottom:2rem;flex-wrap:wrap;}
-.atab{
-  padding:.4rem .9rem;border-radius:6px;
-  font-size:.8rem;font-weight:500;letter-spacing:.04em;
-  text-transform:uppercase;
-  border:none;background:none;cursor:pointer;
-  color:var(--tx-mute);transition:all .2s;
-}
-.atab.active{background:var(--gold-pale);color:var(--gold);}
-.atab:hover:not(.active){background:var(--surf2);color:var(--tx-mid);}
-
-.atab-content{display:none;}
-.atab-content.active{display:block;}
-
-.bio-text p{
-  font-size:.95rem;color:var(--tx-mute);
-  line-height:1.85;margin-bottom:1rem;
-}
-.bio-text p strong{color:var(--gold);font-weight:600;}
-.bio-text p .navy{color:var(--navy-mid);font-weight:600;}
-.bio-text p .fern{color:var(--fern-mid);font-weight:600;}
-
-/* interests */
-.interest-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:.75rem;
-}
-.interest-item{
-  display:flex;align-items:flex-start;gap:.75rem;
-  padding:1rem;
-  background:var(--bg);border:1px solid var(--bd);
-  border-radius:var(--radius);box-shadow:var(--shd-sm);
-  transition:border-color .2s;
-}
-.interest-item:hover{border-color:var(--gold-bd);}
-.int-icon{
-  width:36px;height:36px;border-radius:var(--radius);
-  background:var(--gold-pale);border:1px solid var(--gold-bd);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1rem;flex-shrink:0;
-}
-.int-text h4{font-size:.85rem;font-weight:600;color:var(--tx);margin-bottom:.2rem;}
-.int-text p{font-size:.75rem;color:var(--tx-mute);line-height:1.5;}
-
-/* awards tab */
-.award-list{display:flex;flex-direction:column;gap:.75rem;}
-.award-item{
-  display:flex;align-items:flex-start;gap:1rem;
-  padding:1rem 1.25rem;
-  background:var(--bg);border:1px solid var(--bd);
-  border-left:3px solid var(--gold);
-  border-radius:0 var(--radius) var(--radius) 0;
-  transition:border-color .2s;box-shadow:var(--shd-sm);
-}
-.award-item:hover{border-left-color:var(--gold-h);}
-.award-year{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.7rem;color:var(--gold);
-  min-width:60px;margin-top:.2rem;letter-spacing:.06em;
-}
-.award-info h4{font-size:.88rem;font-weight:600;color:var(--tx);margin-bottom:.15rem;}
-.award-info p{font-size:.78rem;color:var(--tx-mute);}
-
-/* ════════════════════════════════════════════
-   SKILLS — Alexa tabbed progress bars
-════════════════════════════════════════════ */
-#skills{background:var(--bg);}
-
-.skill-tabs{display:flex;gap:6px;margin-bottom:2.5rem;flex-wrap:wrap;}
-.stab{
-  padding:.45rem 1.1rem;border-radius:100px;
-  font-size:.8rem;font-weight:600;letter-spacing:.04em;
-  text-transform:uppercase;border:1px solid var(--bd);
-  background:var(--surf);color:var(--tx-mute);
-  cursor:pointer;transition:all .22s;box-shadow:var(--shd-sm);
-}
-.stab.active.gold-t{background:var(--gold-pale);border-color:var(--gold-bd);color:var(--gold);}
-.stab.active.navy-t{background:var(--navy-pale);border-color:var(--navy-bd);color:var(--navy-mid);}
-.stab.active.fern-t{background:var(--fern-pale);border-color:var(--fern-bd);color:var(--fern-mid);}
-.stab:hover:not(.active){background:var(--surf2);color:var(--tx-mid);}
-
-.skill-panel{display:none;}
-.skill-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1rem 3rem;}
-
-.skill-item{margin-bottom:1rem;}
-.skill-header{
-  display:flex;justify-content:space-between;
-  font-size:.85rem;font-weight:500;color:var(--tx-mid);
-  margin-bottom:.45rem;
-}
-.skill-pct{color:var(--tx-mute);font-size:.78rem;}
-.skill-track{
-  height:6px;background:var(--surf2);border-radius:3px;
-  overflow:hidden;
-}
-.skill-fill{
-  height:100%;border-radius:3px;width:0%;
-  transition:width 1.2s cubic-bezier(.16,1,.3,1);
-}
-.gold-fill{background:linear-gradient(90deg,var(--gold),var(--gold-lt));}
-.navy-fill{background:linear-gradient(90deg,var(--navy),var(--navy-mid));}
-.fern-fill{background:linear-gradient(90deg,var(--fern),var(--fern-mid));}
-
-/* ════════════════════════════════════════════
-   EXPERIENCE — Hugo Academic timeline
-════════════════════════════════════════════ */
-#experience{background:var(--surf);}
-
-.timeline{position:relative;padding-left:2rem;}
-.timeline::before{
-  content:'';position:absolute;
-  left:7px;top:0;bottom:0;
-  width:2px;background:linear-gradient(to bottom,var(--gold),var(--gold-bd),transparent);
-}
-
-.tl-item{
-  position:relative;margin-bottom:2.5rem;
-  padding-left:2.5rem;
-}
-.tl-dot{
-  position:absolute;left:-2rem;top:.35rem;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--gold);border:3px solid var(--surf);
-  box-shadow:0 0 0 2px var(--gold-bd);
-}
-.tl-dot.navy{background:var(--navy-mid);box-shadow:0 0 0 2px var(--navy-bd);}
-.tl-dot.fern{background:var(--fern-mid);box-shadow:0 0 0 2px var(--fern-bd);}
-
-.tl-period{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.7rem;color:var(--tx-mute);
-  letter-spacing:.08em;margin-bottom:.35rem;
-}
-.tl-card{
-  background:var(--bg);border:1px solid var(--bd);
-  border-radius:var(--radius-lg);padding:1.5rem;
-  box-shadow:var(--shd-sm);transition:box-shadow .22s,border-color .22s;
-}
-.tl-card:hover{box-shadow:var(--shd);border-color:var(--gold-bd);}
-.tl-card h4{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.1rem;font-weight:700;
-  color:var(--tx);margin-bottom:.2rem;
-}
-.tl-card .tl-org{
-  font-size:.82rem;font-weight:600;color:var(--gold);
-  margin-bottom:.6rem;
-}
-.tl-card p{font-size:.84rem;color:var(--tx-mute);line-height:1.75;}
-.tl-chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.75rem;}
-.tl-chip{
-  padding:.18rem .6rem;border-radius:4px;
-  font-size:.68rem;font-family:'JetBrains Mono',monospace;
-  background:var(--surf);border:1px solid var(--bd);color:var(--tx-mute);
-}
-
-/* ════════════════════════════════════════════
-   PROJECTS — Alexa filter + grid
-════════════════════════════════════════════ */
-#projects{background:var(--bg);}
-
-.proj-filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem;}
-.pfilter{
-  padding:.38rem .9rem;border-radius:100px;
-  font-size:.78rem;font-weight:500;letter-spacing:.03em;
-  border:1px solid var(--bd);background:var(--surf);
-  color:var(--tx-mute);cursor:pointer;transition:all .2s;
-}
-.pfilter.active,.pfilter:hover{
-  background:var(--gold-pale);border-color:var(--gold-bd);color:var(--gold);
-}
-
-.proj-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.25rem;
-}
-
-.proj-card{
-  background:var(--surf);border:1px solid var(--bd);
-  border-radius:var(--radius-lg);overflow:hidden;
-  box-shadow:var(--shd-sm);
-  transition:transform .25s,box-shadow .25s,border-color .25s;
-}
-.proj-card:hover{transform:translateY(-4px);box-shadow:var(--shd-lg);border-color:var(--gold-bd);}
-.proj-card[data-hide]{display:none;}
-
-.proj-thumb{
-  height:130px;display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;font-family:'JetBrains Mono',monospace;
-  font-size:.7rem;line-height:1.9;color:var(--fern-mid);
-  padding:1rem;text-align:left;
-}
-.thumb-gold{background:linear-gradient(135deg,var(--gold-pale),var(--surf2));}
-.thumb-navy{background:linear-gradient(135deg,var(--navy-pale),var(--surf2));color:var(--navy-mid);}
-.thumb-fern{background:linear-gradient(135deg,var(--fern-pale),var(--surf2));color:var(--fern-mid);}
-
-.proj-body{padding:1.25rem;}
-.proj-cat{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.65rem;color:var(--fern-mid);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem;
-}
-.proj-body h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;font-weight:700;
-  color:var(--tx);margin-bottom:.5rem;line-height:1.3;
-}
-.proj-body p{font-size:.8rem;color:var(--tx-mute);line-height:1.7;margin-bottom:.9rem;}
-.proj-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.9rem;}
-.pchip{
-  padding:.15rem .5rem;border-radius:4px;
-  font-size:.65rem;font-family:'JetBrains Mono',monospace;
-  background:var(--surf2);border:1px solid var(--bd);
-  color:var(--tx-mute);
-}
-.proj-link{
-  font-size:.78rem;font-weight:600;color:var(--gold);
-  display:inline-flex;align-items:center;gap:.35rem;
-  transition:gap .2s;
-}
-.proj-link:hover{gap:.6rem;}
-
-/* ════════════════════════════════════════════
-   WIKIMEDIA
-════════════════════════════════════════════ */
-#wikimedia{background:var(--surf);}
-
-.wiki-lead{
-  max-width:680px;font-size:.95rem;color:var(--tx-mute);
-  line-height:1.85;margin-bottom:3rem;
-}
-.wiki-lead strong{color:var(--tx);font-weight:600;}
-.wiki-lead .gold{color:var(--gold);font-weight:600;}
-
-.wiki-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:1rem;margin-bottom:2.5rem;
-}
-.wiki-card{
-  background:var(--bg);border:1px solid var(--bd);
-  border-radius:var(--radius-lg);padding:1.5rem;
-  display:flex;gap:1rem;align-items:flex-start;
-  box-shadow:var(--shd-sm);
-  transition:all .22s;
-}
-.wiki-card:hover{border-color:var(--gold-bd);box-shadow:var(--shd);transform:translateY(-2px);}
-.wiki-icon{
-  width:40px;height:40px;border-radius:var(--radius);
-  background:var(--gold-pale);border:1px solid var(--gold-bd);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;flex-shrink:0;
-}
-.wiki-card h4{font-size:.88rem;font-weight:600;color:var(--tx);margin-bottom:.3rem;line-height:1.3;}
-.wiki-card p{font-size:.78rem;color:var(--tx-mute);line-height:1.6;}
-
-.lang-box{
-  background:var(--bg);border:1px solid var(--bd);
-  border-radius:var(--radius-lg);padding:1.75rem 2rem;
-  box-shadow:var(--shd-sm);
-}
-.lang-box h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1rem;font-weight:700;color:var(--tx);
-  margin-bottom:1rem;
-}
-.lang-pills{display:flex;flex-wrap:wrap;gap:.6rem;}
-.lang-pill{
-  padding:.35rem .9rem;border-radius:100px;
-  font-size:.78rem;font-weight:500;
-  background:var(--fern-pale);border:1px solid var(--fern-bd);
-  color:var(--fern-mid);
-}
-
-/* ════════════════════════════════════════════
-   RESEARCH — Hugo Academic publication card
-════════════════════════════════════════════ */
-#research{background:var(--bg);}
-
-.research-card{
-  background:var(--surf);border:1px solid var(--gold-bd);
-  border-radius:var(--radius-xl);padding:2.5rem;
-  box-shadow:var(--shd);
-  display:grid;grid-template-columns:2fr 1fr;
-  gap:3.5rem;align-items:start;
-  position:relative;overflow:hidden;
-}
-/* decorative bg glyph */
-.research-card::before{
-  content:'∂φ';
-  position:absolute;right:2rem;top:1rem;
-  font-family:'Cormorant Garamond',serif;
-  font-size:8rem;font-weight:700;
-  color:var(--gold);opacity:.04;
-  pointer-events:none;line-height:1;
-}
-/* top gradient stripe */
-.research-card::after{
-  content:'';position:absolute;top:0;left:0;right:0;
-  height:4px;
-  background:linear-gradient(90deg,var(--gold),var(--gold-lt),var(--fern-mid));
-}
-.rc-type{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.68rem;color:var(--fern-mid);
-  letter-spacing:.14em;text-transform:uppercase;
-  margin-bottom:.65rem;
-}
-.research-card h3{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.45rem;font-weight:700;
-  color:var(--tx);line-height:1.35;margin-bottom:1rem;
-}
-.research-card p{
-  font-size:.88rem;color:var(--tx-mute);
-  line-height:1.85;margin-bottom:1rem;
-}
-.research-card p strong{color:var(--gold);font-weight:600;}
-.research-card p em{color:var(--navy-mid);font-style:italic;}
-
-/* meta col */
-.rc-meta{display:flex;flex-direction:column;gap:1.5rem;}
-.rc-m-label{
-  font-family:'JetBrains Mono',monospace;
-  font-size:.66rem;color:var(--gold);
-  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem;
-}
-.rc-m-val{font-size:.83rem;color:var(--tx-mid);line-height:1.5;}
-.rc-m-val a{color:var(--gold);}
-
-/* progress bars */
-.rc-progress{display:flex;flex-direction:column;gap:.6rem;}
-.rcp-row{display:flex;justify-content:space-between;font-size:.75rem;color:var(--tx-mute);margin-bottom:.3rem;margin-top:.6rem;}
-.rcp-done{color:var(--fern-mid);font-weight:600;}
-.rcp-track{height:5px;background:var(--surf2);border-radius:3px;overflow:hidden;}
-.rcp-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold-lt));}
-
-/* ════════════════════════════════════════════
-   CONTACT — Alexa inspired
-════════════════════════════════════════════ */
-#contact{
-  background:var(--navy);
-  text-align:center;padding:7rem 4rem;
-  position:relative;overflow:hidden;
-}
-#contact::before,#contact::after{
-  content:'';position:absolute;border-radius:50%;
-  border:1px solid rgba(255,255,255,.07);pointer-events:none;
-}
-#contact::before{width:700px;height:700px;top:-250px;right:-200px;}
-#contact::after{width:500px;height:500px;bottom:-200px;left:-150px;}
-
-.contact-inner{position:relative;z-index:1;}
-#contact h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:clamp(2.5rem,5vw,4rem);
-  font-weight:700;color:#fff;line-height:1.1;
-  margin-bottom:.75rem;
-}
-#contact h2 em{font-style:italic;color:var(--gold-lt);}
-.contact-sub{
-  font-size:.97rem;color:rgba(255,255,255,.6);
-  max-width:540px;margin:0 auto 2.5rem;line-height:1.7;
-}
-.contact-links{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem;
-  margin-bottom:2.5rem;
-}
-.contact-link{
-  display:inline-flex;align-items:center;gap:.55rem;
-  padding:.72rem 1.4rem;border-radius:var(--radius);
-  border:1px solid rgba(255,255,255,.18);
-  font-size:.82rem;font-weight:500;
-  color:rgba(255,255,255,.78);
-  background:rgba(255,255,255,.06);
-  transition:all .22s;
-}
-.contact-link:hover{
-  background:rgba(255,255,255,.14);
-  border-color:rgba(255,255,255,.35);
-  color:#fff;transform:translateY(-2px);
-}
-.contact-tagline{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1rem;font-style:italic;
-  color:rgba(255,255,255,.4);
-}
-
-/* ════════════════════════════════════════════
-   FOOTER
-════════════════════════════════════════════ */
-footer{
-  background:#071526;padding:1.75rem 4rem;
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:.75rem;color:rgba(255,255,255,.3);
-  position:relative;z-index:1;
-  border-top:1px solid rgba(255,255,255,.06);
-}
-footer a{color:var(--gold-lt);}
-
-/* ════════════════════════════════════════════
-   SCROLL-UP BUTTON — Alexa signature
-════════════════════════════════════════════ */
-#scrollup{
-  position:fixed;bottom:2rem;right:2rem;
-  width:42px;height:42px;border-radius:50%;
-  background:var(--gold);color:#fff;
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;box-shadow:var(--shd);
-  opacity:0;pointer-events:none;
-  transform:translateY(10px);
-  transition:all .3s;z-index:500;
-}
-#scrollup.show{opacity:1;pointer-events:all;transform:translateY(0);}
-#scrollup:hover{background:var(--gold-h);transform:translateY(-3px);}
-
-/* ════════════════════════════════════════════
-   SCROLL REVEAL
-════════════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
-.reveal.in{opacity:1;transform:translateY(0);}
-.reveal-l{opacity:0;transform:translateX(-22px);transition:opacity .65s ease,transform .65s ease;}
-.reveal-l.in{opacity:1;transform:translateX(0);}
-.reveal-r{opacity:0;transform:translateX(22px);transition:opacity .65s ease,transform .65s ease;}
-.reveal-r.in{opacity:1;transform:translateX(0);}
-
-/* ════════════════════════════════════════════
-   KEYFRAMES
-════════════════════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeLeft{from{opacity:0;transform:translateX(22px);}to{opacity:1;transform:translateX(0);}}
-
-/* ════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════ */
-@media(max-width:1024px){
-  #home{grid-template-columns:1fr;padding-top:calc(var(--nav-h)+2rem);}
-  .home-visual{display:none;}
-  .about-grid{grid-template-columns:1fr;}
-  .profile-card{position:static;}
-  .proj-grid{grid-template-columns:repeat(2,1fr);}
-  .research-card{grid-template-columns:1fr;gap:2rem;}
-  .wiki-grid{grid-template-columns:1fr;}
-}
-@media(max-width:768px){
-  #navbar{padding:0 1.5rem;}
-  .nav-center{display:none;}
-  .hamburger{display:flex;}
-  section{padding:4rem 1.5rem;}
-  #home{padding:calc(var(--nav-h)+1.5rem) 1.5rem 2rem;}
-  .proj-grid{grid-template-columns:1fr;}
-  .skill-panel{grid-template-columns:1fr;}
-  .interest-grid{grid-template-columns:1fr;}
-  footer{flex-direction:column;gap:.5rem;text-align:center;}
-}
-@media(max-width:480px){
-  h1.home-name{font-size:2.6rem;}
-  .research-card{padding:1.5rem;}
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  nav.primary{display:none}
+  .menu-btn{display:grid}
+  .hero{grid-template-columns:1fr;gap:2.5rem}
+  .portrait{margin:0;max-width:320px;order:-1}
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .about,.paper{grid-template-columns:1fr;gap:2rem}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .skills{grid-template-columns:1fr}
+  .tl-row{grid-template-columns:1fr;gap:.4rem}
+}
+@media (max-width:640px){
+  section{padding:4rem 0}
+  #home{padding-top:calc(var(--nav-h) + 2rem)}
+  .cards,.roles{grid-template-columns:1fr}
+  .paper{padding:1.5rem}
+  .wrap{padding:0 1.25rem}
 }
 </style>
 </head>
 <body>
+<a href="#main" class="skip">Skip to content</a>
 
-<!-- SCROLL UP -->
-<button id="scrollup" title="Back to top">↑</button>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-orcid" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 8v8M12 8h2a4 4 0 0 1 0 8h-2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+</svg>
 
-<!-- NAVBAR -->
-<nav id="navbar">
-  <a href="#home" class="nav-logo">MKD <span>Fuseini</span></a>
-  <ul class="nav-center">
-    <li><a href="#home" class="active">Home</a></li>
+<header class="site" id="top">
+  <div class="wrap">
+    <a href="#home" class="logo">M. K. <span>Fuseini</span></a>
+    <nav class="primary" aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#wikimedia">Wikimedia</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" type="button">
+        <svg class="icon moon"><use href="#i-moon"/></svg>
+        <svg class="icon sun"><use href="#i-sun"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav" type="button">
+        <svg class="icon"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+  <ul>
     <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#wikimedia">Wikimedia</a></li>
-    <li><a href="#research">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="nav-right">
-    <button class="theme-toggle" id="themeBtn" title="Toggle dark mode">🌙</button>
-    <button class="hamburger" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home">Home</a><a href="#about">About</a>
-  <a href="#skills">Skills</a><a href="#experience">Experience</a>
-  <a href="#projects">Projects</a><a href="#wikimedia">Wikimedia</a>
-  <a href="#research">Research</a><a href="#contact">Contact</a>
-</div>
 
-<!-- ══════════════════ HOME ══════════════════ -->
+<main id="main">
+
+<!-- HOME -->
 <section id="home">
-  <div class="home-text">
-    <div class="home-greeting"><div class="dot"></div><span>Based in Tamale, Ghana 🇬🇭</span></div>
-    <h1 class="home-name">Mohammed<br/><span class="italic">Kamal-Deen</span><br/><span class="gold">Fuseini</span></h1>
-    <p class="home-typewriter" id="typewriter">&nbsp;</p>
-    <div class="home-tags">
-      <span class="htag gold">MPhil · Cybersecurity &amp; Digital Forensics</span>
-      <span class="htag navy">Ghana Education Service</span>
-      <span class="htag fern">Dagbani Wikimedians</span>
-      <span class="htag">Deepfake Detection</span>
-      <span class="htag">Language Revitalization</span>
-      <span class="htag">Open Knowledge Advocate</span>
-    </div>
-    <div class="home-cta">
-      <a href="#projects" class="btn btn-gold">View My Work →</a>
-      <a href="#wikimedia" class="btn btn-navy">Wikimedia Roles</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-    </div>
-    <div class="home-social">
-      <a href="https://www.linkedin.com/in/mohammed-kamal-deen-fuseini-946242122/" target="_blank" class="social-btn" title="LinkedIn">in</a>
-      <a href="https://github.com/DNShitobu" target="_blank" class="social-btn" title="GitHub">GH</a>
-      <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank" class="social-btn" title="Wikimedia">W</a>
-      <a href="https://orcid.org/0000-0003-0140-4878" target="_blank" class="social-btn" title="ORCID">iD</a>
-      <a href="https://x.com/dnshitobu" target="_blank" class="social-btn" title="X/Twitter">𝕏</a>
-    </div>
-  </div>
-
-  <div class="home-visual">
-    <div class="blob-wrap">
-      <div class="blob-ring br1"></div>
-      <div class="blob-ring br2"></div>
-      <div class="blob-shape">
-        <div class="blob-initials">
-          <div class="blob-mono">MKF</div>
-          <div class="blob-fullname">Mohammed Kamal-Deen Fuseini</div>
-          <div class="blob-handle">// DNShitobu</div>
-        </div>
-      </div>
-      <div class="stat-pill p1">
-        <div><div class="pill-num">6+</div><div class="pill-label">Wikimedia<br/>Years</div></div>
-      </div>
-      <div class="stat-pill p2">
-        <div><div class="pill-num">16+</div><div class="pill-label">Languages<br/>Incubated</div></div>
-      </div>
-      <div class="stat-pill p3">
-        <div><div class="pill-num">32+</div><div class="pill-label">GitHub<br/>Repos</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ ABOUT ══════════════════ -->
-<section id="about">
-  <div class="section-label reveal">
-    <span class="sec-eyebrow">01 /</span>
-    <h2 class="sec-title">About <em>Me</em></h2>
-    <div class="sec-line"></div>
-  </div>
-  <div class="about-grid">
-    <!-- Profile card (Hugo Academic sidebar) -->
-    <div class="profile-card reveal-l">
-      <div class="profile-avatar">
-        <div class="avatar-initials">
-          <div class="av-mono">MKF</div>
-          <div class="av-name">Mohammed Kamal-Deen Fuseini</div>
-          <div class="av-handle">// DNShitobu</div>
-        </div>
-      </div>
-      <h3>Mohammed Kamal-Deen Fuseini</h3>
-      <p class="profile-role">Educator · <em>Researcher</em> · Knowledge Activist<br/>Wikimedia Organizer</p>
-      <div class="profile-stats">
-        <div class="pstat"><div class="pstat-n">2006</div><div class="pstat-l">Leadership Since</div></div>
-        <div class="pstat"><div class="pstat-n">16+</div><div class="pstat-l">Languages Incubated</div></div>
-        <div class="pstat"><div class="pstat-n">6+</div><div class="pstat-l">Wiki Roles</div></div>
-        <div class="pstat"><div class="pstat-n">32+</div><div class="pstat-l">GitHub Repos</div></div>
-      </div>
-      <div class="profile-details">
-        <div class="pd-row"><span class="pd-icon">📍</span><span class="pd-text">Tamale, Northern Ghana 🇬🇭</span></div>
-        <div class="pd-row"><span class="pd-icon">🎓</span><span class="pd-text">MPhil Cybersecurity &amp; Digital Forensics</span></div>
-        <div class="pd-row"><span class="pd-icon">🏫</span><span class="pd-text">Ghana Education Service</span></div>
-        <div class="pd-row"><span class="pd-icon">🔬</span><span class="pd-text"><a href="https://orcid.org/0000-0003-0140-4878" target="_blank">ORCID: 0000-0003-0140-4878 ↗</a></span></div>
-        <div class="pd-row"><span class="pd-icon">💬</span><span class="pd-text">Dagbani, English</span></div>
-      </div>
-      <div class="profile-social">
-        <a href="https://www.linkedin.com/in/mohammed-kamal-deen-fuseini-946242122/" target="_blank" class="ps-link">LinkedIn</a>
-        <a href="https://github.com/DNShitobu" target="_blank" class="ps-link">GitHub</a>
-        <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank" class="ps-link">Wikimedia</a>
-        <a href="https://x.com/dnshitobu" target="_blank" class="ps-link">X / Twitter</a>
-      </div>
-    </div>
-
-    <!-- Bio tabs (Hugo Academic) -->
-    <div class="reveal-r">
-      <div class="about-tabs">
-        <button class="atab active" data-tab="bio">Biography</button>
-        <button class="atab" data-tab="interests">Interests</button>
-        <button class="atab" data-tab="awards">Awards &amp; Roles</button>
-      </div>
-
-      <div class="atab-content active bio-text" id="tab-bio">
-        <p>I am a <strong>professional educator</strong> with the Ghana Education Service and an <strong>MPhil candidate in Cybersecurity &amp; Digital Forensics</strong>. My work lives at the intersection of technology, language, and community — building bridges between African indigenous knowledge and the global digital commons.</p>
-        <p>As an active <strong>Wikimedia organizer</strong>, I have spent years making the <span class="fern">Dagbani language</span> and other Gur/Mabia languages of West Africa visible, searchable, and alive on the internet. A language without a digital footprint is a language on the edge of erasure — and I am determined to change that.</p>
-        <p>My research focuses on <strong>AI-powered deepfake video detection</strong>, developing hybrid multi-modal deep learning frameworks to combat synthetic media and protect the integrity of digital information. I am also a committed student leader, digital literacy advocate, and passionate believer in <span class="navy">gender equity and transformational leadership</span>.</p>
-        <p>Since 2006 — from student union halls to international Wikimedia conferences — I have never stopped building the communities and tools that make knowledge more open, more equitable, and more human.</p>
-      </div>
-
-      <div class="atab-content" id="tab-interests">
-        <div class="interest-grid">
-          <div class="interest-item"><div class="int-icon">🔐</div><div class="int-text"><h4>Cybersecurity &amp; AI</h4><p>Deepfake detection, digital forensics, multi-modal deep learning frameworks</p></div></div>
-          <div class="interest-item"><div class="int-icon">🌍</div><div class="int-text"><h4>Language Digitization</h4><p>NLP, corpus building, voice datasets for endangered African languages</p></div></div>
-          <div class="interest-item"><div class="int-icon">📖</div><div class="int-text"><h4>Open Knowledge</h4><p>Wikipedia, Wikidata, free and open access to information for all</p></div></div>
-          <div class="interest-item"><div class="int-icon">♀️</div><div class="int-text"><h4>Gender &amp; Equity</h4><p>Digital inclusion, gender equity in technology, transformational leadership</p></div></div>
-          <div class="interest-item"><div class="int-icon">🌱</div><div class="int-text"><h4>Biodiversity</h4><p>Documenting local ecological knowledge and biodiversity in Dagbani</p></div></div>
-          <div class="interest-item"><div class="int-icon">🏛️</div><div class="int-text"><h4>Internet Governance</h4><p>Policy, digital rights, and the future of an open, equitable internet</p></div></div>
-        </div>
-      </div>
-
-      <div class="atab-content" id="tab-awards">
-        <div class="award-list">
-          <div class="award-item"><div class="award-year">Ongoing</div><div class="award-info"><h4>Outreach &amp; Partnership Manager — Wiki Loves Ramadan</h4><p>Leading outreach strategy and institutional partnerships for Wikimedia's global Ramadan initiative</p></div></div>
-          <div class="award-item"><div class="award-year">Ongoing</div><div class="award-info"><h4>Regional Fund Committee Member</h4><p>Sub-Saharan Africa &amp; Middle East Africa — allocating Wikimedia Foundation grants</p></div></div>
-          <div class="award-item"><div class="award-year">Ongoing</div><div class="award-info"><h4>Regional Proxy — Black Lunch Table · Wikimedia</h4><p>Amplifying Black artists, scholars, and cultural figures on Wikimedia</p></div></div>
-          <div class="award-item"><div class="award-year">2023–24</div><div class="award-info"><h4>Language Lead — Ghanaian Wikimedia Language Communities Meetup</h4><p>Wikimedia Foundation</p></div></div>
-          <div class="award-item"><div class="award-year">2022</div><div class="award-info"><h4>Ghana School of Internet Governance Fellow</h4><p>GIFEC / Internet Society</p></div></div>
-          <div class="award-item"><div class="award-year">2021+</div><div class="award-info"><h4>Co-Lead — Gurene Wikimedia Community &amp; Co-Founder — Igala Wikimedia Community</h4><p>Ghana &amp; Nigeria</p></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ SKILLS ══════════════════ -->
-<section id="skills">
-  <div class="section-label reveal">
-    <span class="sec-eyebrow">02 /</span>
-    <h2 class="sec-title">Technical <em>Skills</em></h2>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="skill-tabs reveal">
-    <button class="stab active gold-t" data-sp="tech">⚙ Technical</button>
-    <button class="stab navy-t" data-sp="research">🔬 Research &amp; Analysis</button>
-    <button class="stab fern-t" data-sp="community">🌍 Language &amp; Community</button>
-  </div>
-
-  <div class="skill-panel active" id="sp-tech">
-    <div class="skill-item reveal"><div class="skill-header"><span>Python</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill gold-fill" data-w="88"></div></div></div>
-    <div class="skill-item reveal"><div class="skill-header"><span>JavaScript / HTML / CSS</span><span class="skill-pct">85%</span></div><div class="skill-track"><div class="skill-fill gold-fill" data-w="85"></div></div></div>
-    <div class="skill-item reveal"><div class="skill-header"><span>Deep Learning / Computer Vision</span><span class="skill-pct">82%</span></div><div class="skill-track"><div class="skill-fill gold-fill" data-w="82"></div></div></div>
-    <div class="skill-item reveal"><div class="skill-header"><span>REST API Design</span><span class="skill-pct">78%</span></div><div class="skill-track"><div class="skill-fill gold-fill" data-w="78"></div></div></div>
-    <div class="skill-item reveal"><div class="skill-header"><span>Go (Golang)</span><span class="skill-pct">65%</span></div><div class="skill-track"><div class="skill-fill gold-fill" data-w="65"></div></div></div>
-    <div class="skill-item reveal"><div class="skill-header"><span>Natural Language Processing (NLP)</span><span class="skill-pct">80%</span></div><div class="skill-track"><div class="skill-fill gold-fill" data-w="80"></div></div></div>
-  </div>
-
-  <div class="skill-panel" id="sp-research">
-    <div class="skill-item"><div class="skill-header"><span>PRISMA Systematic Literature Review</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill navy-fill" data-w="90"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Academic Writing &amp; Publication</span><span class="skill-pct">87%</span></div><div class="skill-track"><div class="skill-fill navy-fill" data-w="87"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Digital Forensics Investigation</span><span class="skill-pct">82%</span></div><div class="skill-track"><div class="skill-fill navy-fill" data-w="82"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Data Analysis &amp; Visualization</span><span class="skill-pct">84%</span></div><div class="skill-track"><div class="skill-fill navy-fill" data-w="84"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Cybersecurity Principles</span><span class="skill-pct">85%</span></div><div class="skill-track"><div class="skill-fill navy-fill" data-w="85"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Multimedia Deepfake Analysis</span><span class="skill-pct">80%</span></div><div class="skill-track"><div class="skill-fill navy-fill" data-w="80"></div></div></div>
-  </div>
-
-  <div class="skill-panel" id="sp-community">
-    <div class="skill-item"><div class="skill-header"><span>Wikidata &amp; Wikipedia Editing</span><span class="skill-pct">93%</span></div><div class="skill-track"><div class="skill-fill fern-fill" data-w="93"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Dagbani Language &amp; Linguistics</span><span class="skill-pct">95%</span></div><div class="skill-track"><div class="skill-fill fern-fill" data-w="95"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Grant Writing &amp; Management</span><span class="skill-pct">80%</span></div><div class="skill-track"><div class="skill-fill fern-fill" data-w="80"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Community Outreach &amp; Partnership</span><span class="skill-pct">90%</span></div><div class="skill-track"><div class="skill-fill fern-fill" data-w="90"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Mozilla Common Voice / ASR</span><span class="skill-pct">75%</span></div><div class="skill-track"><div class="skill-fill fern-fill" data-w="75"></div></div></div>
-    <div class="skill-item"><div class="skill-header"><span>Training &amp; Capacity Building</span><span class="skill-pct">88%</span></div><div class="skill-track"><div class="skill-fill fern-fill" data-w="88"></div></div></div>
-  </div>
-</section>
-
-<!-- ══════════════════ EXPERIENCE ══════════════════ -->
-<section id="experience">
-  <div class="section-label reveal">
-    <span class="sec-eyebrow">03 /</span>
-    <h2 class="sec-title">Education &amp; <em>Experience</em></h2>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="timeline">
-    <div class="tl-item reveal">
-      <div class="tl-dot"></div>
-      <div class="tl-period">2023 – Present</div>
-      <div class="tl-card">
-        <h4>MPhil — Cybersecurity &amp; Digital Forensics</h4>
-        <div class="tl-org">Graduate School · Ghana</div>
-        <p>Researching hybrid multi-modal deep learning frameworks for deepfake video detection. Completed PRISMA systematic literature review targeting IEEE Transactions on Information Forensics and Security. Chapters 1–2 complete.</p>
-        <div class="tl-chips"><span class="tl-chip">Deepfake Detection</span><span class="tl-chip">Computer Vision</span><span class="tl-chip">AI/ML</span><span class="tl-chip">PRISMA SLR</span></div>
-      </div>
-    </div>
-
-    <div class="tl-item reveal">
-      <div class="tl-dot navy"></div>
-      <div class="tl-period">2019 – Present</div>
-      <div class="tl-card">
-        <h4>Professional Teacher</h4>
-        <div class="tl-org">Ghana Education Service</div>
-        <p>Teaching at the secondary school level, integrating ICT, digital literacy, and open knowledge tools into curriculum delivery. Champion of student leadership and educational innovation.</p>
-        <div class="tl-chips"><span class="tl-chip">Education</span><span class="tl-chip">Digital Literacy</span><span class="tl-chip">ICT</span><span class="tl-chip">Leadership</span></div>
-      </div>
-    </div>
-
-    <div class="tl-item reveal">
-      <div class="tl-dot fern"></div>
-      <div class="tl-period">2021 – Present</div>
-      <div class="tl-card">
-        <h4>Wikimedian in Residence &amp; Community Leader</h4>
-        <div class="tl-org">Wikimedia Foundation / Dagbani Wikimedians User Group</div>
-        <p>Served as Wikimedian in Residence for the Wikidata for Education project (Ghana pilot). Co-led Gurene Wikimedia Community; co-founded Igala Wikimedia Community in Nigeria. Language Lead for Ghanaian Wikimedia Language Communities Meetup 2023–2024.</p>
-        <div class="tl-chips"><span class="tl-chip">Wikidata</span><span class="tl-chip">Community Building</span><span class="tl-chip">Training</span><span class="tl-chip">Dagbani</span></div>
-      </div>
-    </div>
-
-    <div class="tl-item reveal">
-      <div class="tl-dot"></div>
-      <div class="tl-period">2022</div>
-      <div class="tl-card">
-        <h4>Ghana School of Internet Governance Fellow</h4>
-        <div class="tl-org">GIFEC / Internet Society</div>
-        <p>Completed fellowship in internet governance policy, digital rights, and the governance of emerging technologies in Africa.</p>
-        <div class="tl-chips"><span class="tl-chip">Internet Governance</span><span class="tl-chip">Policy</span><span class="tl-chip">Digital Rights</span></div>
-      </div>
-    </div>
-
-    <div class="tl-item reveal">
-      <div class="tl-dot navy"></div>
-      <div class="tl-period">2019 – Present</div>
-      <div class="tl-card">
-        <h4>Language Activist &amp; Presenter</h4>
-        <div class="tl-org">Global Voices · Rising Voices · UNESCO</div>
-        <p>Presented on Dagbani language digital activism at programs funded by Global Voices, Rising Voices, and UNESCO. Completed courses with Rising Voices and heritage institutions related to language revitalization and digital activism.</p>
-        <div class="tl-chips"><span class="tl-chip">Language Activism</span><span class="tl-chip">UNESCO</span><span class="tl-chip">Public Speaking</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ PROJECTS ══════════════════ -->
-<section id="projects">
-  <div class="section-label reveal">
-    <span class="sec-eyebrow">04 /</span>
-    <h2 class="sec-title">Selected <em>Projects</em></h2>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="proj-filters reveal">
-    <button class="pfilter active" data-cat="all">All</button>
-    <button class="pfilter" data-cat="edtech">Ed-Tech</button>
-    <button class="pfilter" data-cat="language">Language</button>
-    <button class="pfilter" data-cat="health">Health &amp; Civic</button>
-    <button class="pfilter" data-cat="security">Security</button>
-    <button class="pfilter" data-cat="knowledge">Open Knowledge</button>
-  </div>
-
-  <div class="proj-grid">
-    <div class="proj-card reveal" data-cat="edtech">
-      <div class="proj-thumb thumb-gold">
-📊 EduPulse · Grade Report<br/>
-────────────────────<br/>
-Class 3A · Term 2 · 2025<br/><br/>
-A1  ████████  34%  ✓<br/>
-B2  ██████    28%  ✓<br/>
-C4  ████      17%  ✓<br/>
-────────────────────<br/>
-⬇ Export · 📈 Compare
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Ed-Tech · Dashboard</div>
-        <h3>EduPulse — Academic Performance Dashboard</h3>
-        <p>Interactive dashboard for visualizing student performance in Ghana's WASSCE grading format with multi-class comparison and data export.</p>
-        <div class="proj-chips"><span class="pchip">HTML5</span><span class="pchip">CSS3</span><span class="pchip">JavaScript</span><span class="pchip">Data Viz</span></div>
-        <a href="https://github.com/DNShitobu" target="_blank" class="proj-link">GitHub →</a>
-      </div>
-    </div>
-
-    <div class="proj-card reveal" data-cat="language">
-      <div class="proj-thumb thumb-fern">
-dag·ba·ni → dag | ba | ni<br/>
-ku·li·ya → ku | li | ya<br/>
-naa·bi·hi → naa | bi | hi<br/>
-────────────────────<br/>
-Syllabifier v2.0 · NLP<br/>
-Corpus: 12,400 tokens<br/>
-Mode: crowdsource ✓
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Language · NLP</div>
-        <h3>Dagbani Syllabifier Web App</h3>
-        <p>Algorithmically syllabifies Dagbani text for NLP pipelines and language learning. Features user authentication and crowdsourced corpus contribution.</p>
-        <div class="proj-chips"><span class="pchip">Python</span><span class="pchip">NLP</span><span class="pchip">Dagbani</span><span class="pchip">Corpus</span></div>
-        <a href="https://github.com/DNShitobu" target="_blank" class="proj-link">GitHub →</a>
-      </div>
-    </div>
-
-    <div class="proj-card reveal" data-cat="health">
-      <div class="proj-thumb thumb-navy">
-🏥 MedTrack · Clinic Portal<br/>
-────────────────────<br/>
-Patients: 1,240<br/>
-Appointments: Today 8<br/>
-Prescriptions: Active 34<br/>
-────────────────────<br/>
-[Records] [Schedule] [Rx]
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Healthcare · Civic Tech</div>
-        <h3>MedTrack — Clinic Management System</h3>
-        <p>Patient records and clinic management for small clinics in Ghana. Appointment scheduling, history tracking, and prescription management.</p>
-        <div class="proj-chips"><span class="pchip">Full-Stack</span><span class="pchip">Patient Records</span><span class="pchip">REST API</span></div>
-        <a href="https://github.com/DNShitobu" target="_blank" class="proj-link">GitHub →</a>
-      </div>
-    </div>
-
-    <div class="proj-card reveal" data-cat="health">
-      <div class="proj-thumb thumb-gold">
-🛠 Skillify · Artisan Market<br/>
-────────────────────<br/>
-👷 Kojo – Welder  ⭐4.9<br/>
-🎨 Ama – Tailor  ⭐4.8<br/>
-🔧 Iddi – Plumber ⭐4.7<br/>
-────────────────────<br/>
-[Browse] [Book] [Pay]
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Marketplace · Social Impact</div>
-        <h3>Skillify — Artisan Skill Marketplace</h3>
-        <p>Online marketplace connecting skilled Ghanaian artisans with customers — formalizing the informal economy with low capital barriers.</p>
-        <div class="proj-chips"><span class="pchip">E-commerce</span><span class="pchip">JavaScript</span><span class="pchip">Ghana Economy</span></div>
-        <a href="https://github.com/DNShitobu" target="_blank" class="proj-link">GitHub →</a>
-      </div>
-    </div>
-
-    <div class="proj-card reveal" data-cat="language">
-      <div class="proj-thumb thumb-fern">
-🎙 Common Voice · Dagbani<br/>
-────────────────────<br/>
-Recordings:  4,200+<br/>
-Contributors: 86<br/>
-Hours:  28.3h validated<br/>
-────────────────────<br/>
-Status: Published ✓
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">AI · Voice Technology</div>
-        <h3>Dagbani Common Voice Dataset</h3>
-        <p>Led Dagbani voice dataset initiative on Mozilla Common Voice, enabling ASR research for a deeply underserved African language community.</p>
-        <div class="proj-chips"><span class="pchip">Mozilla CV</span><span class="pchip">ASR</span><span class="pchip">Dagbani</span><span class="pchip">Open Data</span></div>
-        <a href="https://commonvoice.mozilla.org" target="_blank" class="proj-link">Mozilla CV ↗</a>
-      </div>
-    </div>
-
-    <div class="proj-card reveal" data-cat="knowledge">
-      <div class="proj-thumb thumb-navy">
-🧠 Wikidata for Education<br/>
-────────────────────<br/>
-Subjects: Q_Ghana_SHS<br/>
-Curriculum: WAEC linked<br/>
-Items created: 2,400+<br/>
-────────────────────<br/>
-Status: Ghana Pilot ✓
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Education · Knowledge Graph</div>
-        <h3>Wikidata for Education (Ghana Pilot)</h3>
-        <p>Wikimedian in Residence for Ghana's pilot to make national curriculum data machine-readable in Wikidata — enabling AI curriculum reasoning.</p>
-        <div class="proj-chips"><span class="pchip">Wikidata</span><span class="pchip">Knowledge Graph</span><span class="pchip">Curriculum</span></div>
-        <a href="https://www.wikidata.org" target="_blank" class="proj-link">Wikidata ↗</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ WIKIMEDIA ══════════════════ -->
-<section id="wikimedia">
-  <div class="section-label reveal">
-    <span class="sec-eyebrow">05 /</span>
-    <h2 class="sec-title">Wikimedia <em>Leadership</em></h2>
-    <div class="sec-line"></div>
-  </div>
-  <p class="wiki-lead reveal">Since <strong>2019</strong>, I have been one of the most active Wikimedia contributors in West Africa — building communities, training editors, and ensuring that <span class="gold">African languages and indigenous knowledge</span> have a permanent, freely accessible home on the world's largest free knowledge platform.</p>
-
-  <div class="wiki-grid">
-    <div class="wiki-card reveal"><div class="wiki-icon">📣</div><div><h4>Outreach &amp; Partnership Manager</h4><p>Wiki Loves Ramadan — leading outreach and institutional partnerships to expand Wikimedia across Muslim communities in Africa and globally.</p></div></div>
-    <div class="wiki-card reveal"><div class="wiki-icon">💰</div><div><h4>Regional Fund Committee Member</h4><p>Sub-Saharan Africa &amp; MEA — reviewing and allocating Wikimedia Foundation grants to advance knowledge equity across the region.</p></div></div>
-    <div class="wiki-card reveal"><div class="wiki-icon">🎨</div><div><h4>Regional Proxy — Black Lunch Table</h4><p>Supporting documentation and amplification of Black artists, scholars, and cultural figures on Wikimedia globally.</p></div></div>
-    <div class="wiki-card reveal"><div class="wiki-icon">🏗️</div><div><h4>Grant Manager — Dagbani Wikimedians UG</h4><p>Financial stewardship for the Dagbani Wikimedians User Group's language digitization programs across Northern Ghana.</p></div></div>
-    <div class="wiki-card reveal"><div class="wiki-icon">🎓</div><div><h4>Wikimedian in Residence</h4><p>Wikidata for Education (Ghana pilot) — embedding in institutions to integrate curriculum data and train educators as Wikipedia contributors.</p></div></div>
-    <div class="wiki-card reveal"><div class="wiki-icon">🌐</div><div><h4>Community Co-Founder &amp; Lead</h4><p>Co-led Gurene Wikimedia Community (2021+); co-founded Igala Wikimedia Community in Nigeria — growing open knowledge across West Africa.</p></div></div>
-  </div>
-
-  <div class="lang-box reveal">
-    <h3>Languages Being Digitized &amp; Incubated on Wikipedia</h3>
-    <div class="lang-pills">
-      <span class="lang-pill">🇬🇭 Dagbani</span>
-      <span class="lang-pill">🇬🇭 Gurene / Frafra</span>
-      <span class="lang-pill">🇳🇬 Igala</span>
-      <span class="lang-pill">Dagaare</span>
-      <span class="lang-pill">Mampruli</span>
-      <span class="lang-pill">Waale</span>
-      <span class="lang-pill">Safaliba</span>
-      <span class="lang-pill">Tampulma</span>
-      <span class="lang-pill">Vagla</span>
-      <span class="lang-pill">Sisaala</span>
-      <span class="lang-pill">Kamara</span>
-      <span class="lang-pill">+ Gur/Mabia (Burkina Faso &amp; Benin)</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ RESEARCH ══════════════════ -->
-<section id="research">
-  <div class="section-label reveal">
-    <span class="sec-eyebrow">06 /</span>
-    <h2 class="sec-title">Research &amp; <span class="blue-em">Publications</span></h2>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="research-card reveal">
-    <div>
-      <div class="rc-type">MPhil Dissertation · Ongoing</div>
-      <h3>A Hybrid Multi-Modal Deep Learning Framework for the Detection of Deepfake Videos</h3>
-      <p>Deepfake technology poses an existential threat to digital truth. My dissertation develops a novel hybrid framework combining facial dynamics, audio-visual synchrony, biological signals, and spatiotemporal artifacts — detecting AI-generated synthetic media with greater precision than single-modal approaches.</p>
-      <p>This work produced a <strong>PRISMA-compliant systematic literature review</strong>: <em>"Single-Modal versus Hybrid Multi-Modal Frameworks for the Detection of Deepfake Videos"</em> — a publication-ready manuscript targeting IEEE Transactions on Information Forensics and Security.</p>
-      <div class="proj-chips">
-        <span class="pchip">Multi-Modal Deep Learning</span><span class="pchip">Computer Vision</span>
-        <span class="pchip">Audio-Visual Analysis</span><span class="pchip">PRISMA SLR</span>
-        <span class="pchip">IEEE TIFS</span><span class="pchip">Cybersecurity</span>
-      </div>
-    </div>
-    <div class="rc-meta">
-      <div><div class="rc-m-label">Degree</div><div class="rc-m-val">MPhil Cybersecurity &amp; Digital Forensics</div></div>
-      <div><div class="rc-m-label">Target Journal</div><div class="rc-m-val">IEEE Transactions on Information Forensics &amp; Security</div></div>
-      <div><div class="rc-m-label">ORCID</div><div class="rc-m-val"><a href="https://orcid.org/0000-0003-0140-4878" target="_blank">0000-0003-0140-4878 ↗</a></div></div>
+  <div class="wrap">
+    <div class="hero">
       <div>
-        <div class="rc-m-label">Dissertation Progress</div>
-        <div class="rc-progress">
-          <div class="rcp-row"><span>Chapter 1 — Introduction</span><span class="rcp-done">✓ Done</span></div>
-          <div class="rcp-track"><div class="rcp-fill" style="width:100%;"></div></div>
-          <div class="rcp-row"><span>Chapter 2 — Literature Review</span><span class="rcp-done">✓ Done</span></div>
-          <div class="rcp-track"><div class="rcp-fill" style="width:100%;"></div></div>
-          <div class="rcp-row"><span>Chapter 3 — Methodology</span><span>In Progress</span></div>
-          <div class="rcp-track"><div class="rcp-fill" style="width:55%;"></div></div>
-          <div class="rcp-row"><span>Chapters 4–5</span><span>Upcoming</span></div>
-          <div class="rcp-track"><div class="rcp-fill" style="width:12%;"></div></div>
+        <p class="place"><svg class="icon"><use href="#i-pin"/></svg> Tamale, Ghana</p>
+        <h1>Mohammed Kamal-Deen Fuseini</h1>
+        <p class="role">Educator, cybersecurity researcher, Wikimedia organizer</p>
+        <p class="lead">I teach at a secondary school with the Ghana Education Service and I'm an MPhil candidate in Cybersecurity and Digital Forensics. My research is on detecting deepfake video. I also work on getting Dagbani and other Gur/Mabia languages onto Wikipedia and Wikidata.</p>
+        <div class="cta">
+          <a href="#projects" class="btn btn-primary">View projects</a>
+          <a href="#contact" class="btn btn-outline">Get in touch</a>
+        </div>
+        <div class="social">
+          <a href="mailto:fuseinikamaldeen@gmail.com" aria-label="Email"><svg class="icon"><use href="#i-mail"/></svg></a>
+          <a href="https://github.com/DNShitobu" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+          <a href="https://www.linkedin.com/in/mohammed-kamal-deen-fuseini-946242122/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+          <a href="https://orcid.org/0000-0003-0140-4878" target="_blank" rel="noopener" aria-label="ORCID"><svg class="icon"><use href="#i-orcid"/></svg></a>
+          <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank" rel="noopener" aria-label="Wikimedia"><svg class="icon"><use href="#i-globe"/></svg></a>
+          <a href="https://x.com/dnshitobu" target="_blank" rel="noopener" aria-label="X"><svg class="icon fill"><use href="#i-x"/></svg></a>
+        </div>
+      </div>
+      <div class="portrait">
+        <div class="mono" aria-hidden="true">MKF</div>
+        <!-- Add a photo named profile.jpg next to this file and it replaces the monogram. -->
+        <img src="profile.jpg" alt="Portrait of Mohammed Kamal-Deen Fuseini" width="400" height="500" onerror="this.remove()"/>
+      </div>
+    </div>
+    <div class="facts reveal">
+      <div class="fact"><b>2006</b><span>Student leadership since</span></div>
+      <div class="fact"><b>2019</b><span>Wikimedia contributor since</span></div>
+      <div class="fact"><b>16+</b><span>Languages incubated</span></div>
+      <div class="fact"><b>60+</b><span>Public GitHub repositories</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h2 class="title">Teaching, research and open knowledge</h2>
+    <div class="about">
+      <div class="reveal">
+        <p>I'm a professional teacher with the Ghana Education Service, and I'm completing an MPhil in Cybersecurity and Digital Forensics. Most of my work sits where technology, language and community meet.</p>
+        <p>As a Wikimedia organizer I have spent years making the Dagbani language and other Gur/Mabia languages of West Africa visible and searchable online. A language with no digital presence is easy to lose, and I'd like to help change that for the ones I work with.</p>
+        <p>My research uses hybrid multi-modal deep learning to detect deepfake video. I'm also active in student leadership, digital literacy and gender equity, and I've been involved in leadership since 2006.</p>
+      </div>
+      <div class="interests reveal">
+        <h3>Interests</h3>
+        <ul>
+          <li><b>Cybersecurity and AI.</b> Deepfake detection, digital forensics.</li>
+          <li><b>Language digitization.</b> NLP, corpus building and voice data for African languages.</li>
+          <li><b>Open knowledge.</b> Wikipedia, Wikidata and free access to information.</li>
+          <li><b>Gender and equity.</b> Digital inclusion and leadership.</li>
+          <li><b>Biodiversity.</b> Documenting local ecological knowledge in Dagbani.</li>
+          <li><b>Internet governance.</b> Policy and digital rights.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <p class="eyebrow">Experience</p>
+    <h2 class="title">Education and work</h2>
+    <div class="tl">
+      <div class="tl-row reveal">
+        <div class="tl-when">2023 – Present</div>
+        <div>
+          <h3>MPhil, Cybersecurity and Digital Forensics</h3>
+          <p class="tl-org">Graduate School, Ghana</p>
+          <p>Researching hybrid multi-modal deep learning frameworks for deepfake video detection. Chapters 1 and 2 are complete, and a PRISMA systematic literature review is written up for submission to IEEE Transactions on Information Forensics and Security.</p>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-when">2019 – Present</div>
+        <div>
+          <h3>Professional Teacher</h3>
+          <p class="tl-org">Ghana Education Service</p>
+          <p>Teaching at secondary school level and bringing ICT, digital literacy and open knowledge tools into the classroom. I also support student leadership.</p>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-when">2021 – Present</div>
+        <div>
+          <h3>Wikimedian in Residence and community leader</h3>
+          <p class="tl-org">Wikimedia Foundation · Dagbani Wikimedians User Group</p>
+          <p>Wikimedian in Residence for the Wikidata for Education project (Ghana pilot). Co-lead of the Gurene Wikimedia Community and co-founder of the Igala Wikimedia Community in Nigeria. Language Lead for the Ghanaian Wikimedia Language Communities Meetup, 2023–24.</p>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-when">2022</div>
+        <div>
+          <h3>Ghana School of Internet Governance Fellow</h3>
+          <p class="tl-org">GIFEC · Internet Society</p>
+          <p>Fellowship covering internet governance policy, digital rights and the governance of emerging technology in Africa.</p>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-when">2019 – Present</div>
+        <div>
+          <h3>Language activist and presenter</h3>
+          <p class="tl-org">Global Voices · Rising Voices · UNESCO</p>
+          <p>Presented on Dagbani digital activism at programs funded by Global Voices, Rising Voices and UNESCO, and completed Rising Voices and heritage-institution courses on language revitalization.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ CONTACT ══════════════════ -->
-<section id="contact">
-  <div class="contact-inner">
-    <h2 class="reveal">Let's Build<br/><em>Something Meaningful</em></h2>
-    <p class="contact-sub reveal">Whether you're an HR professional, recruiter, researcher, Wikimedia partner, or fellow language enthusiast — I'd love to connect. Let's make knowledge more open, languages more visible, and the world more equitable.</p>
-    <div class="contact-links reveal">
-      <a href="https://www.linkedin.com/in/mohammed-kamal-deen-fuseini-946242122/" target="_blank" class="contact-link">💼 LinkedIn</a>
-      <a href="https://github.com/DNShitobu" target="_blank" class="contact-link">⌨️ GitHub</a>
-      <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank" class="contact-link">📖 Wikimedia</a>
-      <a href="https://orcid.org/0000-0003-0140-4878" target="_blank" class="contact-link">🔬 ORCID</a>
-      <a href="https://x.com/dnshitobu" target="_blank" class="contact-link">𝕏 Twitter</a>
-      <a href="https://web.facebook.com/proff.optimistic" target="_blank" class="contact-link">📘 Facebook</a>
-      <a href="https://www.instagram.com/dnshitobu/" target="_blank" class="contact-link">📸 Instagram</a>
+<!-- RESEARCH -->
+<section id="research" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">Research</p>
+    <h2 class="title">Detecting deepfake video</h2>
+    <div class="paper reveal">
+      <div>
+        <span class="tag">MPhil dissertation · In progress</span>
+        <h3>A Hybrid Multi-Modal Deep Learning Framework for the Detection of Deepfake Videos</h3>
+        <p>The dissertation builds a framework that combines facial dynamics, audio-visual synchrony, biological signals and spatiotemporal artifacts, with the aim of detecting synthetic media more reliably than single-modal methods.</p>
+        <p>It has already produced a PRISMA-compliant systematic literature review, <em>"Single-Modal versus Hybrid Multi-Modal Frameworks for the Detection of Deepfake Videos"</em>, being prepared for IEEE Transactions on Information Forensics and Security.</p>
+      </div>
+      <div class="meta">
+        <dl>
+          <dt>Degree</dt><dd>MPhil Cybersecurity and Digital Forensics</dd>
+          <dt>Target journal</dt><dd>IEEE Transactions on Information Forensics and Security</dd>
+          <dt>ORCID</dt><dd><a href="https://orcid.org/0000-0003-0140-4878" target="_blank" rel="noopener">0000-0003-0140-4878</a></dd>
+          <dt>Progress</dt>
+        </dl>
+        <ul class="progress">
+          <li><span>Ch. 1 Introduction</span><span class="done">Done</span></li>
+          <li><span>Ch. 2 Literature review</span><span class="done">Done</span></li>
+          <li><span>Ch. 3 Methodology</span><span class="todo">In progress</span></li>
+          <li><span>Ch. 4–5</span><span class="todo">Upcoming</span></li>
+        </ul>
+      </div>
     </div>
-    <p class="contact-tagline reveal">Open to collaborations · Speaking invitations · Research partnerships · Fellowship opportunities</p>
   </div>
 </section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <p class="eyebrow">Projects</p>
+    <h2 class="title">Selected work</h2>
+    <div class="cards">
+      <article class="card reveal">
+        <p class="kind">Research · Security</p>
+        <h3>Deepfake detection</h3>
+        <p>A deepfake video detector, plus face-generation experiments with a VAE, a Wasserstein GAN, diffusion and a classic autoencoder, all built for the MPhil work.</p>
+        <div class="stack"><span>Python</span><span>Deep learning</span><span>Computer vision</span></div>
+        <a class="go" href="https://github.com/DNShitobu/Deepfake-detector" target="_blank" rel="noopener">Source on GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card reveal">
+        <p class="kind">Language technology</p>
+        <h3>Dagbani text-to-speech</h3>
+        <p>A single-speaker Dagbani speech synthesis pipeline that fine-tunes VITS and MMS-TTS, with a data inventory and a Colab notebook.</p>
+        <div class="stack"><span>Python</span><span>VITS</span><span>MMS-TTS</span></div>
+        <a class="go" href="https://github.com/DNShitobu/dagbani-tts" target="_blank" rel="noopener">Source on GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card reveal">
+        <p class="kind">Language technology</p>
+        <h3>Dagbani syllabifier</h3>
+        <p>Splits Dagbani text into syllables for NLP pipelines and language learning.</p>
+        <div class="stack"><span>Python</span><span>NLP</span><span>Dagbani</span></div>
+        <a class="go" href="https://github.com/DNShitobu/Dagbani-Syllabifier" target="_blank" rel="noopener">Source on GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card reveal">
+        <p class="kind">Machine learning</p>
+        <h3>RAG document chatbot</h3>
+        <p>Ask questions about any document. Uses FAISS for retrieval, sentence-transformers for embeddings and Flan-T5 to generate answers.</p>
+        <div class="stack"><span>Python</span><span>FAISS</span><span>Flan-T5</span></div>
+        <a class="go" href="https://github.com/DNShitobu/rag-document-chatbot" target="_blank" rel="noopener">Source on GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card reveal">
+        <p class="kind">Web · Client site</p>
+        <h3>Tarimbia Construction</h3>
+        <p>A company website built and deployed for a construction business.</p>
+        <div class="stack"><span>TypeScript</span><span>Vercel</span></div>
+        <a class="go" href="https://tarimbiaconstruction.vercel.app" target="_blank" rel="noopener">Visit live site <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+      <article class="card reveal">
+        <p class="kind">Web · Small business</p>
+        <h3>Point of sale for SMEs</h3>
+        <p>A point-of-sale system for small and medium-sized businesses.</p>
+        <div class="stack"><span>TypeScript</span></div>
+        <a class="go" href="https://github.com/DNShitobu/pos" target="_blank" rel="noopener">Source on GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </article>
+    </div>
+    <p class="more">There are more than 60 repositories on <a href="https://github.com/DNShitobu?tab=repositories" target="_blank" rel="noopener">GitHub</a>, including a dozen machine learning projects and several business websites.</p>
+  </div>
+</section>
+
+<!-- WIKIMEDIA -->
+<section id="wikimedia" class="alt">
+  <div class="wrap">
+    <p class="eyebrow">Wikimedia</p>
+    <h2 class="title">Building open knowledge communities</h2>
+    <p class="lead reveal" style="margin-bottom:2.5rem">I have contributed to Wikimedia projects since 2019, training editors and starting communities so that African languages have a lasting home on Wikipedia and Wikidata.</p>
+    <div class="roles">
+      <div class="role-item reveal"><h3>Outreach and Partnership Manager</h3><p>Wiki Loves Ramadan. Leads outreach and institutional partnerships.</p></div>
+      <div class="role-item reveal"><h3>Regional Fund Committee member</h3><p>Sub-Saharan Africa and Middle East &amp; Africa. Reviews and allocates Wikimedia Foundation grants.</p></div>
+      <div class="role-item reveal"><h3>Regional Proxy, Black Lunch Table</h3><p>Supports documentation of Black artists, scholars and cultural figures on Wikimedia.</p></div>
+      <div class="role-item reveal"><h3>Grant Manager, Dagbani Wikimedians User Group</h3><p>Manages funds for the group's language digitization programs in Northern Ghana.</p></div>
+      <div class="role-item reveal"><h3>Wikimedian in Residence</h3><p>Wikidata for Education, Ghana pilot. Works with institutions to put curriculum data into Wikidata and train educators as contributors.</p></div>
+      <div class="role-item reveal"><h3>Community co-founder and lead</h3><p>Co-lead of the Gurene Wikimedia Community (2021 onward). Co-founder of the Igala Wikimedia Community in Nigeria.</p></div>
+    </div>
+    <div class="langs reveal">
+      <h3>Languages being incubated on Wikipedia</h3>
+      <p>Dagbani, Gurene (Frafra), Igala, Dagaare, Mampruli, Waale, Safaliba, Tampulma, Vagla, Sisaala and Kamara, along with other Gur/Mabia languages in Burkina Faso and Benin.</p>
+      <p>I also led the Dagbani voice dataset effort on Mozilla Common Voice, which supports speech recognition research for the language.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <p class="eyebrow">Skills</p>
+    <h2 class="title">What I work with</h2>
+    <div class="skills">
+      <div class="reveal">
+        <h3>Technical</h3>
+        <ul>
+          <li>Python</li>
+          <li>JavaScript, HTML and CSS</li>
+          <li>Go</li>
+          <li>REST API design</li>
+          <li>Deep learning and computer vision</li>
+          <li>Natural language processing</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <h3>Research</h3>
+        <ul>
+          <li>PRISMA systematic reviews</li>
+          <li>Academic writing and publication</li>
+          <li>Digital forensics investigation</li>
+          <li>Data analysis and visualization</li>
+          <li>Cybersecurity principles</li>
+          <li>Multimedia deepfake analysis</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <h3>Language and community</h3>
+        <ul>
+          <li>Wikipedia and Wikidata editing</li>
+          <li>Dagbani language and linguistics</li>
+          <li>Grant writing and management</li>
+          <li>Community outreach and partnerships</li>
+          <li>Mozilla Common Voice and speech data</li>
+          <li>Training and capacity building</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h2 class="reveal">Open to collaboration</h2>
+    <p class="lead reveal">I'm interested in research partnerships, speaking invitations, fellowships and Wikimedia projects. The quickest way to reach me is email.</p>
+    <div class="links reveal">
+      <a href="mailto:fuseinikamaldeen@gmail.com"><svg class="icon"><use href="#i-mail"/></svg> fuseinikamaldeen@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mohammed-kamal-deen-fuseini-946242122/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg> LinkedIn</a>
+      <a href="https://github.com/DNShitobu" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg> GitHub</a>
+      <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank" rel="noopener"><svg class="icon"><use href="#i-globe"/></svg> Wikimedia</a>
+      <a href="https://orcid.org/0000-0003-0140-4878" target="_blank" rel="noopener"><svg class="icon"><use href="#i-orcid"/></svg> ORCID</a>
+      <a href="https://x.com/dnshitobu" target="_blank" rel="noopener"><svg class="icon fill"><use href="#i-x"/></svg> X</a>
+      <a href="https://web.facebook.com/proff.optimistic" target="_blank" rel="noopener"><svg class="icon"><use href="#i-facebook"/></svg> Facebook</a>
+      <a href="https://www.instagram.com/dnshitobu/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-instagram"/></svg> Instagram</a>
+    </div>
+  </div>
+</section>
+
+</main>
 
 <footer>
-  <span>© 2026 Mohammed Kamal-Deen Fuseini · <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank">DNShitobu</a></span>
-  <span>Tamale, Ghana 🇬🇭 · Built with intention</span>
-  <span>ORCID: <a href="https://orcid.org/0000-0003-0140-4878" target="_blank">0000-0003-0140-4878</a></span>
+  <div class="wrap">
+    <span>© 2026 Mohammed Kamal-Deen Fuseini</span>
+    <span>Tamale, Ghana · <a href="https://meta.wikimedia.org/wiki/User:Dnshitobu" target="_blank" rel="noopener">Dnshitobu on Wikimedia</a></span>
+  </div>
 </footer>
 
 <script>
-// ── DARK MODE ──────────────────────────────────
-const btn = document.getElementById('themeBtn');
-const html = document.documentElement;
-const stored = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', stored);
-btn.textContent = stored === 'dark' ? '☀️' : '🌙';
-btn.addEventListener('click', () => {
-  const t = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', t);
-  btn.textContent = t === 'dark' ? '☀️' : '🌙';
-  localStorage.setItem('theme', t);
-});
+(function(){
+  var root=document.documentElement;
+  var header=document.querySelector('header.site');
 
-// ── HAMBURGER ──────────────────────────────────
-const ham = document.getElementById('ham');
-const mob = document.getElementById('mobileMenu');
-ham.addEventListener('click', () => {
-  ham.classList.toggle('open');
-  mob.classList.toggle('open');
-});
-mob.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-  ham.classList.remove('open'); mob.classList.remove('open');
-}));
-
-// ── SCROLLSPY + NAVBAR SHRINK ──────────────────
-const navLinks = document.querySelectorAll('#navbar .nav-center a, #mobileMenu a');
-const sections = document.querySelectorAll('section[id]');
-const navbar = document.getElementById('navbar');
-
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  navbar.classList.toggle('scrolled', y > 60);
-
-  // scrollup
-  document.getElementById('scrollup').classList.toggle('show', y > 400);
-
-  // active nav
-  let current = '';
-  sections.forEach(s => { if (y >= s.offsetTop - 100) current = s.id; });
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+  /* theme */
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var t=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',t);
+    try{localStorage.setItem('theme',t);}catch(e){}
   });
-}, {passive: true});
 
-document.getElementById('scrollup').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-
-// ── TYPEWRITER ─────────────────────────────────
-const phrases = [
-  'Educator & Researcher 🎓',
-  'Cybersecurity Researcher 🔐',
-  'Wikimedia Organizer 📖',
-  'Language Activist 🌍',
-  'Knowledge Equity Champion ✊',
-];
-let pi = 0, ci = 0, deleting = false;
-const tw = document.getElementById('typewriter');
-function type() {
-  const full = phrases[pi];
-  if (!deleting) {
-    ci++;
-    tw.innerHTML = `<span class="typed">${full.slice(0,ci)}</span><span class="cursor"></span>`;
-    if (ci === full.length) { deleting = true; setTimeout(type, 1800); return; }
-    setTimeout(type, 65);
-  } else {
-    ci--;
-    tw.innerHTML = `<span class="typed">${full.slice(0,ci)}</span><span class="cursor"></span>`;
-    if (ci === 0) { deleting = false; pi = (pi+1) % phrases.length; setTimeout(type, 400); return; }
-    setTimeout(type, 38);
+  /* mobile menu */
+  var menuBtn=document.getElementById('menuBtn'),mobile=document.getElementById('mobileNav');
+  function setMenu(open){
+    mobile.classList.toggle('open',open);
+    menuBtn.setAttribute('aria-expanded',open);
+    menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
   }
-}
-type();
+  menuBtn.addEventListener('click',function(){setMenu(!mobile.classList.contains('open'));});
+  mobile.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
 
-// ── ABOUT TABS ─────────────────────────────────
-document.querySelectorAll('.atab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.atab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.atab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-  });
-});
-
-// ── SKILL TABS ─────────────────────────────────
-document.querySelectorAll('.stab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.stab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.skill-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    const panel = document.getElementById('sp-' + tab.dataset.sp);
-    panel.classList.add('active');
-    // animate bars
-    setTimeout(() => animateBars(panel), 100);
-  });
-});
-
-// ── PROJECT FILTER ─────────────────────────────
-document.querySelectorAll('.pfilter').forEach(f => {
-  f.addEventListener('click', () => {
-    document.querySelectorAll('.pfilter').forEach(x => x.classList.remove('active'));
-    f.classList.add('active');
-    const cat = f.dataset.cat;
-    document.querySelectorAll('.proj-card').forEach(c => {
-      if (cat === 'all' || c.dataset.cat === cat) {
-        c.removeAttribute('data-hide');
-        c.style.display = '';
-      } else {
-        c.style.display = 'none';
-      }
+  /* header border + current section */
+  var links=document.querySelectorAll('nav.primary a');
+  var secs=[].slice.call(document.querySelectorAll('main section[id]'));
+  function onScroll(){
+    header.classList.toggle('scrolled',window.scrollY>10);
+    var cur='';
+    secs.forEach(function(s){if(window.scrollY>=s.offsetTop-120)cur=s.id;});
+    links.forEach(function(a){
+      if(a.getAttribute('href')==='#'+cur)a.setAttribute('aria-current','true');
+      else a.removeAttribute('aria-current');
     });
-  });
-});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
 
-// ── SCROLL REVEAL ──────────────────────────────
-function animateBars(container) {
-  (container || document).querySelectorAll('.skill-fill[data-w]').forEach(bar => {
-    bar.style.width = bar.dataset.w + '%';
-  });
-}
-const revealObs = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => {
-        e.target.classList.add('in');
-        if (e.target.closest('#skills')) animateBars(e.target.closest('.skill-panel'));
-      }, i * 80);
-      revealObs.unobserve(e.target);
-    }
-  });
-}, {threshold: 0.07});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => revealObs.observe(el));
+  /* reveal on scroll */
+  var items=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+      });
+    },{threshold:.08});
+    items.forEach(function(el){io.observe(el);});
+  }else{
+    items.forEach(function(el){el.classList.add('in');});
+  }
+})();
 </script>
 </body>
 </html>

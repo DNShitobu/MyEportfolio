@@ -112,8 +112,8 @@ h1{font-size:clamp(2.6rem,5.6vw,4.4rem);line-height:1.04;margin-bottom:1.25rem}
 .social a{width:42px;height:42px;display:grid;place-items:center;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);transition:color .15s,border-color .15s}
 .social a:hover{color:var(--brand);border-color:var(--brand)}
 .social .icon{width:19px;height:19px}
-.portrait{position:relative;aspect-ratio:4/5;max-width:400px;margin-left:auto;width:100%;border-radius:20px;overflow:hidden;background:var(--deep);box-shadow:var(--shadow)}
-.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait{position:relative;aspect-ratio:4/5;max-width:340px;margin-left:auto;width:100%;border-radius:20px;overflow:hidden;background:var(--deep);box-shadow:var(--shadow)}
+.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
 .portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:6rem;color:var(--accent);letter-spacing:.02em}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:4rem;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
 .fact{background:var(--surface);padding:1.25rem 1.5rem}
@@ -306,8 +306,8 @@ footer a{color:#e2b45a;text-decoration:underline;text-underline-offset:3px}
       </div>
       <div class="portrait">
         <div class="mono" aria-hidden="true">MKF</div>
-        <!-- Add a photo named profile.jpg next to this file and it replaces the monogram. -->
-        <img src="profile.jpg" alt="Portrait of Mohammed Kamal-Deen Fuseini" width="400" height="500" onerror="this.remove()"/>
+        <!-- The photo (profile.png) covers the monogram; the monogram shows if the file is missing. -->
+        <img src="profile.png" alt="Portrait of Mohammed Kamal-Deen Fuseini" width="240" height="371" onerror="this.remove()"/>
       </div>
     </div>
     <div class="facts reveal">

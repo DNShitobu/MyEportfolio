@@ -515,6 +515,29 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <div class="pay-breakdown" id="pay-breakdown"></div>
     </div>
 
+    <!-- MENU MANAGEMENT -->
+    <div id="view-manage" class="view">
+      <div class="section-title">Menu Management</div>
+      <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+        <div style="min-width:200px;max-width:240px">
+          <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text2);margin-bottom:8px">Categories</div>
+          <div id="mgmt-cats"></div>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <input class="form-input" id="mgmt-new-cat" placeholder="New category…" style="flex:1" onkeydown="if(event.key==='Enter')addCategory()">
+            <button class="btn btn-primary btn-sm" onclick="addCategory()">+ Add</button>
+          </div>
+        </div>
+        <div style="flex:1;min-width:300px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--text2)">Items</div>
+            <button class="btn btn-primary btn-sm" onclick="openItemModal()">+ Add Item</button>
+          </div>
+          <div id="mgmt-cat-filter" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px"></div>
+          <div id="mgmt-items-list"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- SETTINGS -->
     <div id="view-settings" class="view">
       <div class="section-title">Settings</div>
@@ -594,6 +617,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <div class="ctx-item" onclick="ctxSetStatus('available')">✅ Set Available</div>
   <div class="ctx-item" onclick="ctxSetStatus('reserved')">📌 Set Reserved</div>
   <div class="ctx-item" onclick="ctxSetStatus('occupied')">🔴 Set Occupied</div>
+  <div class="ctx-item" onclick="ctxAssignWaiter()">👤 Assign Waiter</div>
   <div class="ctx-item" onclick="ctxEditCapacity()">🪑 Edit Capacity</div>
   <div class="ctx-item danger" onclick="ctxClearOrder()">🗑 Clear Order</div>
 </div>
@@ -645,6 +669,44 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div style="display:flex;gap:8px">
       <button class="btn btn-primary" style="flex:1" onclick="confirmWaiterAssign()">Assign</button>
       <button class="btn btn-secondary" onclick="closeModal('waiter-overlay')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ITEM EDIT MODAL -->
+<div class="overlay hidden" id="item-edit-overlay">
+  <div class="modal modal-md">
+    <button class="modal-close" onclick="closeModal('item-edit-overlay')">✕</button>
+    <div class="modal-title" id="item-edit-title">Add Item</div>
+    <div class="settings-grid" style="gap:12px">
+      <div class="form-group">
+        <label class="form-label">Item Name *</label>
+        <input class="form-input" id="ie-name" placeholder="e.g. Paneer Tikka">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Price *</label>
+        <input class="form-input" id="ie-price" type="number" min="0" step="0.01" placeholder="0.00">
+      </div>
+      <div class="form-group" style="grid-column:1/-1">
+        <label class="form-label">Description</label>
+        <input class="form-input" id="ie-desc" placeholder="Short description…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Category</label>
+        <select class="form-input" id="ie-cat"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-input" id="ie-veg">
+          <option value="1">🟢 Vegetarian</option>
+          <option value="0">🔴 Non-Vegetarian</option>
+        </select>
+      </div>
+    </div>
+    <input type="hidden" id="ie-id">
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button class="btn btn-primary" style="flex:1" onclick="saveItem()">💾 Save Item</button>
+      <button class="btn btn-secondary" onclick="closeModal('item-edit-overlay')">Cancel</button>
     </div>
   </div>
 </div>
@@ -824,10 +886,9 @@ function updateClock(){
   const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('clock-date').textContent=`${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
-  // shift
   const h=now.getHours();
-  let shift=h<12?'Morning Shift':h<17?'Afternoon Shift':'Evening Shift';
-  document.getElementById('shift-display').textContent=shift;
+  const autoShift=h<12?'Morning':h<17?'Afternoon':'Evening';
+  document.getElementById('shift-display').textContent=(S.shift||autoShift)+' Shift';
 }
 
 // ═══════════════════════════════════════════════
@@ -843,6 +904,7 @@ function showView(v){
   if(v==='summary')renderSummary();
   if(v==='settings')renderSettings();
   if(v==='menu')renderMenu();
+  if(v==='manage')renderManage();
 }
 
 // ═══════════════════════════════════════════════
@@ -1799,6 +1861,185 @@ function notify(msg,type='info'){
   el.style.display='block';
   clearTimeout(el._t);
   el._t=setTimeout(()=>{el.style.display='none';},2800);
+}
+
+// ═══════════════════════════════════════════════
+//  WAITER ASSIGN
+// ═══════════════════════════════════════════════
+function ctxAssignWaiter(){
+  const t=getTable(ctxTableId);
+  if(!t)return;
+  document.getElementById('waiter-assign-input').value=t.waiter||'';
+  document.getElementById('waiter-overlay').classList.remove('hidden');
+}
+
+function confirmWaiterAssign(){
+  const t=getTable(ctxTableId);
+  if(!t)return;
+  const name=document.getElementById('waiter-assign-input').value.trim();
+  t.waiter=name;
+  if(ctxTableId===selectedTableId)document.getElementById('op-waiter-input').value=name;
+  save();renderFloor();
+  closeModal('waiter-overlay');
+  notify(`Waiter "${name||'—'}" assigned to Table ${t.number}`,'success');
+}
+
+// ═══════════════════════════════════════════════
+//  MENU MANAGEMENT
+// ═══════════════════════════════════════════════
+let mgmtCatFilter='All';
+
+function renderManage(){
+  renderMgmtCatList();
+  renderMgmtCatFilter();
+  renderMgmtItems();
+}
+
+function renderMgmtCatList(){
+  const el=document.getElementById('mgmt-cats');
+  if(!el)return;
+  el.innerHTML='';
+  menuCategories.forEach((c,idx)=>{
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--bg3);border-radius:6px;margin-bottom:6px';
+    const span=document.createElement('span');
+    span.style.cssText='font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+    span.textContent=c;
+    const btn=document.createElement('button');
+    btn.className='btn btn-sm btn-danger';
+    btn.textContent='×';
+    btn.style.cssText='flex-shrink:0;margin-left:6px;padding:2px 7px;font-size:13px';
+    btn.onclick=()=>deleteCategory(idx);
+    row.appendChild(span);
+    row.appendChild(btn);
+    el.appendChild(row);
+  });
+}
+
+function renderMgmtCatFilter(){
+  const el=document.getElementById('mgmt-cat-filter');
+  if(!el)return;
+  el.innerHTML='';
+  ['All',...menuCategories].forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='cat-btn'+(mgmtCatFilter===c?' active':'');
+    btn.textContent=c;
+    btn.onclick=()=>{mgmtCatFilter=c;renderMgmtCatFilter();renderMgmtItems();};
+    el.appendChild(btn);
+  });
+}
+
+function renderMgmtItems(){
+  const el=document.getElementById('mgmt-items-list');
+  if(!el)return;
+  const filtered=mgmtCatFilter==='All'?menuItems:menuItems.filter(it=>it.cat===mgmtCatFilter);
+  if(!filtered.length){
+    el.innerHTML='<div style="color:var(--text2);font-size:13px;padding:12px 0">No items. Click "+ Add Item" to create one.</div>';
+    return;
+  }
+  const c=S.currencySymbol;
+  el.innerHTML='';
+  filtered.forEach(it=>{
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bg3);border-radius:8px;margin-bottom:6px';
+    const dot=document.createElement('div');
+    dot.className='veg-dot '+(it.veg?'veg':'nveg');
+    dot.style.flexShrink='0';
+    const info=document.createElement('div');
+    info.style.cssText='flex:1;min-width:0';
+    info.innerHTML=`<div style="font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(it.name)}</div><div style="font-size:11px;color:var(--text2)">${esc(it.cat)} · ${it.avail?'<span style="color:var(--green)">Available</span>':'<span style="color:var(--red)">Unavailable</span>'}</div>`;
+    const price=document.createElement('div');
+    price.style.cssText='font-weight:600;color:var(--amber);font-size:13px;flex-shrink:0';
+    price.textContent=`${c}${it.price.toFixed(2)}`;
+    const editBtn=document.createElement('button');
+    editBtn.className='btn btn-sm btn-secondary';
+    editBtn.textContent='✏️';
+    editBtn.onclick=()=>openItemModal(it.id);
+    const delBtn=document.createElement('button');
+    delBtn.className='btn btn-sm btn-danger';
+    delBtn.textContent='×';
+    delBtn.style.cssText='padding:3px 8px;font-size:14px';
+    delBtn.onclick=()=>deleteItem(it.id);
+    row.appendChild(dot);row.appendChild(info);row.appendChild(price);row.appendChild(editBtn);row.appendChild(delBtn);
+    el.appendChild(row);
+  });
+}
+
+function addCategory(){
+  const input=document.getElementById('mgmt-new-cat');
+  const name=(input.value||'').trim();
+  if(!name){notify('Enter a category name','error');return;}
+  if(menuCategories.includes(name)){notify('Category already exists','error');return;}
+  menuCategories.push(name);
+  input.value='';
+  save();renderManage();renderMenu();
+  notify(`Category "${name}" added`,'success');
+}
+
+function deleteCategory(idx){
+  const name=menuCategories[idx];
+  if(name===undefined)return;
+  if(!confirm(`Delete category "${name}"? Its items will move to "${menuCategories.filter(c=>c!==name)[0]||'General'}".`))return;
+  menuCategories.splice(idx,1);
+  if(!menuCategories.length)menuCategories=['General'];
+  menuItems.forEach(it=>{if(it.cat===name)it.cat=menuCategories[0];});
+  if(mgmtCatFilter===name)mgmtCatFilter='All';
+  save();renderManage();renderMenu();
+  notify(`"${name}" deleted`,'success');
+}
+
+function openItemModal(id){
+  const catSel=document.getElementById('ie-cat');
+  catSel.innerHTML=menuCategories.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
+  if(id){
+    const it=menuItems.find(m=>m.id===id);
+    if(!it)return;
+    document.getElementById('item-edit-title').textContent='Edit Item';
+    document.getElementById('ie-id').value=it.id;
+    document.getElementById('ie-name').value=it.name;
+    document.getElementById('ie-desc').value=it.desc||'';
+    document.getElementById('ie-price').value=it.price;
+    catSel.value=it.cat;
+    document.getElementById('ie-veg').value=it.veg?'1':'0';
+  } else {
+    document.getElementById('item-edit-title').textContent='Add Item';
+    document.getElementById('ie-id').value='';
+    document.getElementById('ie-name').value='';
+    document.getElementById('ie-desc').value='';
+    document.getElementById('ie-price').value='';
+    catSel.value=menuCategories[0]||'General';
+    document.getElementById('ie-veg').value='1';
+  }
+  document.getElementById('item-edit-overlay').classList.remove('hidden');
+}
+
+function saveItem(){
+  const name=(document.getElementById('ie-name').value||'').trim();
+  if(!name){notify('Item name is required','error');return;}
+  const price=parseFloat(document.getElementById('ie-price').value);
+  if(isNaN(price)||price<0){notify('Enter a valid price','error');return;}
+  const desc=(document.getElementById('ie-desc').value||'').trim();
+  const cat=document.getElementById('ie-cat').value;
+  const veg=document.getElementById('ie-veg').value==='1';
+  const existId=document.getElementById('ie-id').value;
+  if(existId){
+    const it=menuItems.find(m=>m.id===existId);
+    if(it){it.name=name;it.desc=desc;it.price=price;it.cat=cat;it.veg=veg;}
+    notify(`"${name}" updated`,'success');
+  } else {
+    menuItems.push({id:'i_'+Date.now(),name,desc,price,cat,veg,avail:true});
+    notify(`"${name}" added to menu`,'success');
+  }
+  save();closeModal('item-edit-overlay');renderManage();renderMenu();
+}
+
+function deleteItem(id){
+  const it=menuItems.find(m=>m.id===id);
+  if(!it)return;
+  if(!confirm(`Delete "${it.name}" from the menu?`))return;
+  menuItems=menuItems.filter(m=>m.id!==id);
+  save();renderManage();renderMenu();
+  notify(`"${it.name}" removed`,'success');
 }
 
 function doPrint(html){

@@ -82,29 +82,55 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .ld-occ{background:var(--amber)}
 .ld-res{background:var(--blue)}
 
-.tables-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
-.table-card{
-  background:var(--bg3);border:2px solid var(--border2);border-radius:var(--radius);
-  padding:16px 14px;cursor:pointer;transition:all 0.2s;position:relative;user-select:none;
+.floor-canvas-wrap{width:100%;overflow-x:auto;overflow-y:visible;padding-bottom:8px}
+.floor-canvas{
+  position:relative;width:1200px;height:700px;
+  background:linear-gradient(160deg,#161210 0%,#1b1a16 50%,#141612 100%);
+  border-radius:12px;border:1px solid var(--border2);overflow:hidden;
 }
-.table-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.table-card.available{border-color:var(--green);background:rgba(52,199,89,0.05)}
-.table-card.occupied{border-color:var(--amber);background:var(--amber-glow)}
-.table-card.reserved{border-color:var(--blue);background:rgba(10,132,255,0.08)}
-.table-card.selected{box-shadow:0 0 0 3px rgba(245,158,11,0.5);transform:translateY(-2px)}
-
-.t-num{font-size:26px;font-weight:700;color:var(--text);line-height:1}
-.t-cap{font-size:11px;color:var(--text2);margin-top:3px}
-.t-status{font-size:10px;font-weight:700;margin-top:8px;text-transform:uppercase;letter-spacing:0.8px}
-.table-card.available .t-status{color:var(--green)}
-.table-card.occupied .t-status{color:var(--amber)}
-.table-card.reserved .t-status{color:var(--blue)}
-.t-waiter{font-size:10px;color:var(--text2);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.t-order-badge{
-  position:absolute;top:8px;right:8px;background:var(--amber);color:#000;
-  width:20px;height:20px;border-radius:50%;font-size:11px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;
+.floor-section{position:absolute;border:1px solid;border-radius:3px;overflow:hidden}
+.floor-section-label{
+  position:absolute;bottom:8px;left:12px;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.8px;opacity:0.4;pointer-events:none;
 }
+.floor-section.main{background:rgba(180,140,80,0.07);border-color:rgba(180,140,80,0.2)}
+.floor-section.bar{background:rgba(80,40,10,0.15);border-color:rgba(140,80,20,0.3)}
+.floor-section.patio{background:rgba(50,100,50,0.08);border-color:rgba(80,140,80,0.2)}
+.floor-section.private{background:rgba(100,70,160,0.1);border-color:rgba(140,100,200,0.3)}
+.floor-table{
+  position:absolute;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;cursor:pointer;border:2px solid;transition:all 0.2s;
+  user-select:none;transform:translate(-50%,-50%);
+}
+.floor-table.round{width:52px;height:52px;border-radius:50%}
+.floor-table.sm{width:78px;height:48px;border-radius:6px}
+.floor-table.lg{width:112px;height:52px;border-radius:6px}
+.floor-table.xl{width:144px;height:56px;border-radius:6px}
+.floor-table:hover{transform:translate(-50%,-50%) scale(1.1);z-index:10;box-shadow:0 4px 20px rgba(0,0,0,0.6)}
+.floor-table.selected{transform:translate(-50%,-50%) scale(1.1);z-index:10;box-shadow:0 0 0 3px rgba(245,158,11,0.6)!important}
+.floor-table.available{background:rgba(52,199,89,0.1);border-color:var(--green)}
+.floor-table.occupied{background:rgba(245,158,11,0.15);border-color:var(--amber)}
+.floor-table.reserved{background:rgba(10,132,255,0.1);border-color:var(--blue)}
+.ft-num{font-size:13px;font-weight:700;line-height:1;color:var(--text)}
+.ft-cap{font-size:9px;color:var(--text2);margin-top:2px;line-height:1}
+.ft-badge{
+  position:absolute;top:-7px;right:-7px;background:var(--amber);color:#000;
+  width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;z-index:5;
+}
+.floor-bar-counter{
+  position:absolute;background:rgba(100,60,20,0.4);border:1px solid rgba(160,100,40,0.5);
+  border-radius:4px;display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;
+  pointer-events:none;
+}
+.floor-marker{
+  position:absolute;font-size:10px;color:rgba(255,255,255,0.3);
+  background:rgba(0,0,0,0.3);padding:3px 8px;border-radius:4px;
+  pointer-events:none;white-space:nowrap;
+}
+.floor-plant{position:absolute;font-size:18px;opacity:0.4;pointer-events:none}
+.floor-walkway{position:absolute;background:rgba(255,255,255,0.025);pointer-events:none}
 
 /* CONTEXT MENU */
 #ctx-menu{
@@ -456,7 +482,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
           <div class="legend-item"><div class="legend-dot ld-res"></div>Reserved</div>
         </div>
       </div>
-      <div id="tables-grid" class="tables-grid"></div>
+      <div id="floor-canvas-wrap" class="floor-canvas-wrap"></div>
     </div>
 
     <!-- MENU -->
@@ -707,20 +733,43 @@ function newOrder(){
   };
 }
 
-function buildTables(count){
-  const caps = [2,2,4,4,4,6,6,6,8,8,2,4,6,4,2,8];
-  const result = [];
-  for(let i=1;i<=count;i++){
-    result.push({
-      id:'t'+i,
-      number:i,
-      capacity: caps[(i-1)%caps.length],
-      status:'available',
-      waiter:'',
-      orders:[newOrder()]
-    });
-  }
-  return result;
+function buildFloorPlan(){
+  const defs=[
+    // Main Hall – Row 1
+    {n:1,c:2,sh:'round',x:75,y:95},{n:2,c:4,sh:'round',x:180,y:95},
+    {n:3,c:4,sh:'round',x:285,y:95},{n:4,c:4,sh:'round',x:395,y:95},
+    {n:5,c:6,sh:'sm',x:500,y:95},{n:6,c:2,sh:'round',x:615,y:95},
+    {n:7,c:4,sh:'round',x:720,y:95},
+    // Main Hall – Row 2
+    {n:8,c:4,sh:'round',x:75,y:235},{n:9,c:6,sh:'sm',x:190,y:235},
+    {n:10,c:4,sh:'round',x:320,y:235},{n:11,c:4,sh:'round',x:425,y:235},
+    {n:12,c:6,sh:'sm',x:530,y:235},{n:13,c:2,sh:'round',x:645,y:235},
+    {n:14,c:4,sh:'round',x:750,y:235},
+    // Main Hall – Row 3
+    {n:15,c:8,sh:'lg',x:115,y:380},{n:16,c:4,sh:'round',x:285,y:380},
+    {n:17,c:4,sh:'round',x:390,y:380},{n:18,c:6,sh:'sm',x:510,y:380},
+    {n:19,c:4,sh:'round',x:630,y:380},{n:20,c:2,sh:'round',x:740,y:380},
+    // Bar & Lounge – Stools
+    {n:21,c:2,sh:'round',x:875,y:90},{n:22,c:2,sh:'round',x:975,y:90},
+    {n:23,c:2,sh:'round',x:1075,y:90},{n:24,c:2,sh:'round',x:1170,y:90},
+    // Bar & Lounge – Lounge tables
+    {n:25,c:4,sh:'round',x:890,y:310},{n:26,c:4,sh:'round',x:1020,y:310},
+    {n:27,c:4,sh:'round',x:1150,y:310},
+    // Outdoor Patio – Row 1
+    {n:28,c:4,sh:'round',x:80,y:545},{n:29,c:4,sh:'round',x:195,y:545},
+    {n:30,c:4,sh:'round',x:310,y:545},{n:31,c:4,sh:'round',x:430,y:545},
+    {n:32,c:6,sh:'sm',x:555,y:545},{n:33,c:4,sh:'round',x:680,y:545},
+    // Outdoor Patio – Row 2
+    {n:34,c:4,sh:'round',x:160,y:645},{n:35,c:4,sh:'round',x:295,y:645},
+    {n:36,c:4,sh:'round',x:430,y:645},{n:37,c:4,sh:'round',x:575,y:645},
+    // Private Dining
+    {n:38,c:10,sh:'xl',x:985,y:545},{n:39,c:8,sh:'lg',x:985,y:645},
+  ];
+  return defs.map(d=>({
+    id:'t'+d.n,number:d.n,capacity:d.c,
+    shape:d.sh,x:d.x,y:d.y,
+    status:'available',waiter:'',orders:[newOrder()]
+  }));
 }
 
 // ═══════════════════════════════════════════════
@@ -747,16 +796,18 @@ function load(){
     const tt=localStorage.getItem('pos_tables');
     if(tt){
       const saved=JSON.parse(tt);
-      // rebuild if table count changed
-      if(saved.length!==S.tableCount){tables=buildTables(S.tableCount);}
-      else tables=saved;
+      tables=buildFloorPlan();
+      saved.forEach(sv=>{
+        const t=tables.find(t=>t.id===sv.id);
+        if(t){t.status=sv.status;t.waiter=sv.waiter;t.orders=sv.orders;}
+      });
     } else {
-      tables=buildTables(S.tableCount);
+      tables=buildFloorPlan();
     }
   }catch(e){
     menuCategories=defaultMenuCategories();
     menuItems=defaultMenuItems();
-    tables=buildTables(S.tableCount);
+    tables=buildFloorPlan();
   }
 }
 
@@ -797,24 +848,78 @@ function showView(v){
 //  FLOOR PLAN
 // ═══════════════════════════════════════════════
 function renderFloor(){
-  const g=document.getElementById('tables-grid');
-  g.innerHTML='';
+  const wrap=document.getElementById('floor-canvas-wrap');
+  if(!wrap)return;
+  wrap.innerHTML='';
+  const canvas=document.createElement('div');
+  canvas.className='floor-canvas';
+
+  // Sections
+  [{id:'main',l:0,t:0,w:800,h:450,lbl:'Main Dining Hall'},
+   {id:'bar',l:830,t:0,w:370,h:450,lbl:'Bar & Lounge'},
+   {id:'patio',l:0,t:480,w:800,h:220,lbl:'Outdoor Patio'},
+   {id:'private',l:830,t:480,w:370,h:220,lbl:'Private Dining'},
+  ].forEach(s=>{
+    const d=document.createElement('div');
+    d.className=`floor-section ${s.id}`;
+    d.style.cssText=`left:${s.l}px;top:${s.t}px;width:${s.w}px;height:${s.h}px`;
+    d.innerHTML=`<div class="floor-section-label">${s.lbl}</div>`;
+    canvas.appendChild(d);
+  });
+
+  // Walkways
+  [{x:0,y:450,w:1200,h:30},{x:800,y:0,w:30,h:700}].forEach(w=>{
+    const d=document.createElement('div');
+    d.className='floor-walkway';
+    d.style.cssText=`left:${w.x}px;top:${w.y}px;width:${w.w}px;height:${w.h}px`;
+    canvas.appendChild(d);
+  });
+
+  // Bar counter
+  const bc=document.createElement('div');
+  bc.className='floor-bar-counter';
+  bc.style.cssText='left:843px;top:140px;width:345px;height:60px';
+  bc.textContent='Bar Counter';
+  canvas.appendChild(bc);
+
+  // Corner plants
+  ['left:12px;top:12px','left:762px;top:12px','left:12px;top:420px','left:762px;top:420px',
+   'left:12px;top:490px','left:762px;top:490px'].forEach(pos=>{
+    const p=document.createElement('div');
+    p.className='floor-plant';
+    p.style.cssText=pos;
+    p.textContent='🪴';
+    canvas.appendChild(p);
+  });
+
+  // Markers
+  [{text:'🚪 Entrance',s:'bottom:8px;left:12px'},
+   {text:'👨‍🍳 Kitchen',s:'top:8px;right:8px'},
+   {text:'💺 Host Stand',s:'bottom:8px;left:340px'},
+  ].forEach(m=>{
+    const d=document.createElement('div');
+    d.className='floor-marker';
+    d.style.cssText=m.s;
+    d.textContent=m.text;
+    canvas.appendChild(d);
+  });
+
+  // Tables
   tables.forEach(t=>{
     const totalItems=t.orders.reduce((s,o)=>s+o.items.reduce((a,i)=>a+i.qty,0),0);
-    const div=document.createElement('div');
-    div.className=`table-card ${t.status}${t.id===selectedTableId?' selected':''}`;
-    div.dataset.id=t.id;
-    div.innerHTML=`
-      ${totalItems>0?`<div class="t-order-badge">${totalItems}</div>`:''}
-      <div class="t-num">${t.number}</div>
-      <div class="t-cap">🪑 ${t.capacity} seats</div>
-      <div class="t-status">${t.status}</div>
-      <div class="t-waiter">${t.waiter||'—'}</div>
-    `;
-    div.addEventListener('click',()=>selectTable(t.id));
-    div.addEventListener('contextmenu',e=>{e.preventDefault();showCtxMenu(e,t.id);});
-    g.appendChild(div);
+    const d=document.createElement('div');
+    d.className=`floor-table ${t.shape} ${t.status}${t.id===selectedTableId?' selected':''}`;
+    d.style.cssText=`left:${t.x}px;top:${t.y}px`;
+    d.dataset.id=t.id;
+    d.innerHTML=`${totalItems>0?`<div class="ft-badge">${totalItems}</div>`:''}
+      <div class="ft-num">${t.number}</div>
+      <div class="ft-cap">${t.capacity}p</div>`;
+    d.addEventListener('click',()=>selectTable(t.id));
+    d.addEventListener('contextmenu',e=>{e.preventDefault();showCtxMenu(e,t.id);});
+    canvas.appendChild(d);
   });
+
+  wrap.appendChild(canvas);
 }
 
 function selectTable(id){
@@ -842,7 +947,7 @@ function showCtxMenu(e,tableId){
   m.style.left=x+'px';m.style.top=y+'px';
 }
 document.addEventListener('click',()=>{document.getElementById('ctx-menu').style.display='none';});
-document.addEventListener('contextmenu',e=>{if(!e.target.closest('.table-card'))document.getElementById('ctx-menu').style.display='none';});
+document.addEventListener('contextmenu',e=>{if(!e.target.closest('.floor-table'))document.getElementById('ctx-menu').style.display='none';});
 
 function ctxSetStatus(st){
   const t=getTable(ctxTableId);
@@ -1640,10 +1745,6 @@ function renderSettings(){
       <input class="form-input" id="s-scrate" type="number" min="0" max="100" step="0.1" value="${S.serviceChargeRate}">
     </div>
     <div class="form-group">
-      <label class="form-label">Number of Tables</label>
-      <input class="form-input" id="s-tables" type="number" min="1" max="50" value="${S.tableCount}">
-    </div>
-    <div class="form-group">
       <label class="form-label">Shift</label>
       <input class="form-input" id="s-shift" value="${esc(S.shift)}">
     </div>
@@ -1661,7 +1762,6 @@ function renderSettings(){
 }
 
 function saveSettings(){
-  const prevCount=S.tableCount;
   S.restaurantName=document.getElementById('s-name').value.trim()||S.restaurantName;
   S.cashierName=document.getElementById('s-cashier').value.trim()||S.cashierName;
   S.address=document.getElementById('s-addr').value.trim();
@@ -1669,16 +1769,9 @@ function saveSettings(){
   S.currencySymbol=document.getElementById('s-currency').value.trim()||'₹';
   S.taxRate=parseFloat(document.getElementById('s-taxrate').value)||0;
   S.serviceChargeRate=parseFloat(document.getElementById('s-scrate').value)||0;
-  S.tableCount=parseInt(document.getElementById('s-tables').value)||12;
   S.shift=document.getElementById('s-shift').value.trim()||'Morning';
   S.tipEnabled=document.getElementById('s-tip-toggle').classList.contains('on');
   S.serviceChargeEnabled=document.getElementById('s-sc-toggle').classList.contains('on');
-
-  if(S.tableCount!==prevCount){
-    tables=buildTables(S.tableCount);
-    selectedTableId=null;
-    renderOrderPanel();
-  }
 
   document.getElementById('rest-name-display').textContent=S.restaurantName;
   document.getElementById('cashier-name-display').textContent=S.cashierName;
